@@ -1,9 +1,19 @@
 # database2javafiles
 The database tables is transformed into java files
 
-# config properties
+download [jar.zip](https://github.com/SShnoodles/database2javafiles/releases)
+
+# Support database
+- oracle
+- postgresql
+- mysql
+
+# Two config properties
+1. first load outside "app.properties"
+2. second load resources "app.properties"
+
+# Configuration file
 ```
-# oracle or postgresql or mysql
 db=oracle
 host=localhost
 port=1521
