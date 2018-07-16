@@ -12,4 +12,5 @@ public class Column {
     private String name;
     private String type;
     private String remarks;
+    private boolean primaryKey;
 }

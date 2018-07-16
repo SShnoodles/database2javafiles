@@ -53,8 +53,11 @@ public class DbHandler {
         for (Column column : columns) {
             sb.append("    /**").append(LINE)
                     .append("     * ").append(column.getRemarks() == null ? "" : column.getRemarks()).append(LINE)
-                    .append("     */").append(LINE)
-                    .append("    @Column(name = \"").append(column.getName()).append("\")").append(LINE)
+                    .append("     */").append(LINE);
+            if (column.isPrimaryKey()) {
+                sb.append("    @Id").append(LINE);
+            }
+            sb.append("    @Column(name = \"").append(column.getName()).append("\")").append(LINE)
                     .append("    private ").append(ColumnType.get(column.getType().toUpperCase())).append(" ").append(StringUtil.underlineToHump(column.getName())).append(";").append(LINE);
         }
         sb.append("}");
@@ -63,7 +66,7 @@ public class DbHandler {
 
     public List<Table> getTables(Connection conn, String dbType, String userName) throws SQLException {
         DatabaseMetaData dbMetData = conn.getMetaData();
-        ResultSet rs = dbMetData.getTables(null, DbCharsetTypeUtil.convertDatabaseCharsetType(userName.toUpperCase(), dbType),
+        ResultSet rs = dbMetData.getTables(null, DbCharsetTypeUtil.convertDatabaseCharsetType(userName, dbType),
                 null, new String[]{"TABLE"});
         List<Table> tableList = new ArrayList<>();
         while (rs.next()) {
@@ -71,7 +74,8 @@ public class DbHandler {
             String tableRemarks = rs.getString("REMARKS");
             Table table = new Table();
             List<Column> columns = new ArrayList<>();
-            ResultSet colRet = dbMetData.getColumns(null, "%", tableName, "%");
+            ResultSet colRet = dbMetData.getColumns(null, userName.toUpperCase(), tableName, "%");
+
 
             while (colRet.next()) {
                 String columnName = colRet.getString("COLUMN_NAME");
@@ -83,6 +87,7 @@ public class DbHandler {
                 column.setRemarks(columnRemarks);
                 columns.add(column);
             }
+
             Set<String> set = new HashSet<>();
             List<Column> newColumns = new ArrayList<>();
             for (Column column : columns) {
@@ -95,6 +100,16 @@ public class DbHandler {
             table.setColumns(newColumns);
             tableList.add(table);
             System.out.println(tableList.size() + ". " + tableName);
+
+            ResultSet primaryKeysRet = conn.getMetaData().getPrimaryKeys(null, userName.toUpperCase(), tableName);
+            while (primaryKeysRet.next()) {
+                String columnName = primaryKeysRet.getString("COLUMN_NAME");
+                for (Column column : columns) {
+                    if (column.getName().equals(columnName)) {
+                        column.setPrimaryKey(true);
+                    }
+                }
+            }
         }
         return tableList;
     }
