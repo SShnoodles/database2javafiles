@@ -13,6 +13,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author ssnoodles
@@ -38,17 +39,60 @@ public class DbHandler {
 
     public StringBuilder tableDataToString(Table table) {
         StringBuilder sb = new StringBuilder();
+        // import
         sb.append("import lombok.Data;").append(LINE)
                 .append("import javax.persistence.*;").append(LINE)
                 .append("import java.math.BigDecimal;").append(LINE)
-                .append("import java.util.Date;").append(LINE)
-                .append("/**").append(LINE)
+                .append("import java.util.Date;").append(LINE);
+        // head
+        sb.append("/**").append(LINE)
                 .append(" * ").append(table.getRemarks() == null ? "" : table.getRemarks()).append(LINE)
                 .append(" */").append(LINE)
-                .append("@Data").append(LINE)
                 .append("@Entity").append(LINE)
                 .append("@Table(name = \"").append(table.getName()).append("\")").append(LINE)
-                .append("public class ").append(StringUtil.underlineToHumpTopUpperCase(table.getName())).append(" {").append(LINE);
+                .append("@Data").append(LINE);
+        List<String> primaryKeys = table.getPrimaryKeys();
+        String primaryKeysString = null;
+        if (primaryKeys != null && primaryKeys.size() > 0) {
+            if (1 == primaryKeys.size()) {
+                primaryKeysString = "\"" + StringUtil.underlineToHump(primaryKeys.get(0)) + "\"";
+            }else {
+                primaryKeysString = "{ ";
+                for (String primaryKey : primaryKeys) {
+                    primaryKeysString = primaryKeysString + "\"" + StringUtil.underlineToHump(primaryKey) + "\", ";
+                }
+                primaryKeysString = primaryKeysString.substring(0, primaryKeysString.length() - 2);
+                primaryKeysString = primaryKeysString + " }";
+            }
+        }
+        if (primaryKeysString != null) {
+            sb.append("@EqualsAndHashCode(of = ").append(primaryKeysString).append(")").append(LINE);
+        }
+
+        // class
+        String tableName = StringUtil.underlineToHumpTopUpperCase(table.getName());
+        sb.append("public class ").append(tableName).append(" {").append(LINE);
+
+        List<Column> primaryKeyColumns = table.getColumns().stream().filter(Column::isPrimaryKey).collect(Collectors.toList());
+        String columnTypeAndNames = "";
+        String columnTypeEqNames = null;
+        if (primaryKeyColumns != null && primaryKeyColumns.size() > 0) {
+            for (Column column : primaryKeyColumns) {
+                columnTypeAndNames = "String " + StringUtil.underlineToHump(column.getName()) + ", ";
+                columnTypeEqNames = "this." + StringUtil.underlineToHump(column.getName()) + " = " + StringUtil.underlineToHump(column.getName()) + ";,";
+            }
+            columnTypeAndNames = columnTypeAndNames.substring(0, columnTypeAndNames.length() - 2);
+            columnTypeEqNames = columnTypeEqNames.substring(0, columnTypeEqNames.length() - 1);
+        }
+        sb.append("    public ").append(tableName).append("(").append(columnTypeAndNames).append(") {").append(LINE);
+        if (columnTypeEqNames != null) {
+            String[] split = columnTypeEqNames.split(",");
+            for (String s : split) {
+                sb.append("        ").append(s).append(LINE);
+            }
+        }
+        sb.append("    }").append(LINE);
+
         List<Column> columns = table.getColumns();
         for (Column column : columns) {
             sb.append("    /**").append(LINE)
@@ -56,6 +100,7 @@ public class DbHandler {
                     .append("     */").append(LINE);
             if (column.isPrimaryKey()) {
                 sb.append("    @Id").append(LINE);
+                sb.append("    @Setter(AccessLevel.PROTECTED)").append(LINE);
             }
             sb.append("    @Column(name = \"").append(column.getName()).append("\")").append(LINE)
                     .append("    private ");
@@ -106,10 +151,9 @@ public class DbHandler {
             table.setName(tableName);
             table.setRemarks(tableRemarks);
             table.setColumns(newColumns);
-            tableList.add(table);
-            System.out.println(tableList.size() + ". " + tableName);
 
             ResultSet primaryKeysRet = conn.getMetaData().getPrimaryKeys(null, userName.toUpperCase(), tableName);
+            List<String> primaryKeys = new ArrayList<>();
             while (primaryKeysRet.next()) {
                 String columnName = primaryKeysRet.getString("COLUMN_NAME");
                 for (Column column : columns) {
@@ -117,7 +161,12 @@ public class DbHandler {
                         column.setPrimaryKey(true);
                     }
                 }
+                primaryKeys.add(columnName);
+
             }
+            table.setPrimaryKeys(primaryKeys);
+            tableList.add(table);
+            System.out.println(tableList.size() + ". " + tableName);
         }
         return tableList;
     }
