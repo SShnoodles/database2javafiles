@@ -34,7 +34,44 @@ public class DbHandler {
         for (Table table : tableList) {
             StringBuilder sb = dbHandler.tableDataToString(table);
             FileUtil.write2JavaFiles(outpath + StringUtil.underlineToHumpTopUpperCase(table.getName()), sb);
+
+            StringBuilder sbDto = dbHandler.tableDataToStringDto(table);
+            FileUtil.write2JavaFiles(outpath + StringUtil.underlineToHumpTopUpperCase(table.getName()) + "Dto", sbDto);
         }
+    }
+
+    public StringBuilder tableDataToStringDto(Table table) {
+        StringBuilder sb = new StringBuilder();
+        // import
+        sb.append("import lombok.Data;").append(LINE)
+                .append("import javax.persistence.*;").append(LINE)
+                .append("import java.math.BigDecimal;").append(LINE)
+                .append("import java.util.Date;").append(LINE);
+        // head
+        sb.append("/**").append(LINE)
+                .append(" * ").append(table.getRemarks() == null ? "" : table.getRemarks()).append(LINE)
+                .append(" */").append(LINE)
+                .append("@Data").append(LINE);
+
+        // class
+        String tableName = StringUtil.underlineToHumpTopUpperCase(table.getName());
+        sb.append("public class ").append(tableName).append("Dto").append(" {").append(LINE);
+
+        List<Column> columns = table.getColumns();
+        for (Column column : columns) {
+            sb.append("    /**").append(LINE)
+                    .append("     * ").append(column.getRemarks() == null ? "" : column.getRemarks()).append(LINE)
+                    .append("     */").append(LINE);
+            sb.append("    private ");
+            if (!column.isDecimalDigits() && "NUMBER".equals(column.getType())) {
+                sb.append("Integer");
+            }else {
+                sb.append(ColumnType.get(column.getType().toUpperCase()));
+            }
+            sb.append(" ").append(StringUtil.underlineToHump(column.getName())).append(";").append(LINE);
+        }
+        sb.append("}");
+        return sb;
     }
 
     public StringBuilder tableDataToString(Table table) {
