@@ -58,7 +58,13 @@ public class DbHandler {
                 sb.append("    @Id").append(LINE);
             }
             sb.append("    @Column(name = \"").append(column.getName()).append("\")").append(LINE)
-                    .append("    private ").append(ColumnType.get(column.getType().toUpperCase())).append(" ").append(StringUtil.underlineToHump(column.getName())).append(";").append(LINE);
+                    .append("    private ");
+            if (!column.isDecimalDigits() && "NUMBER".equals(column.getType())) {
+                sb.append("Integer");
+            }else {
+                sb.append(ColumnType.get(column.getType().toUpperCase()));
+            }
+            sb.append(" ").append(StringUtil.underlineToHump(column.getName())).append(";").append(LINE);
         }
         sb.append("}");
         return sb;
@@ -81,10 +87,12 @@ public class DbHandler {
                 String columnName = colRet.getString("COLUMN_NAME");
                 String columnType = colRet.getString("TYPE_NAME");
                 String columnRemarks = colRet.getString("REMARKS");
+                int decimalDigits = colRet.getInt("DECIMAL_DIGITS");
                 Column column = new Column();
                 column.setName(columnName);
                 column.setType(columnType);
                 column.setRemarks(columnRemarks);
+                column.setDecimalDigits(decimalDigits > 0);
                 columns.add(column);
             }
 

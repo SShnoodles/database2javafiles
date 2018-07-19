@@ -13,4 +13,5 @@ public class Column {
     private String type;
     private String remarks;
     private boolean primaryKey;
+    private boolean decimalDigits;
 }
