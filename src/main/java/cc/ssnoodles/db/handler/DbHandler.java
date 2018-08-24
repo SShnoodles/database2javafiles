@@ -1,76 +1,36 @@
 package cc.ssnoodles.db.handler;
 
-import cc.ssnoodles.db.constant.ColumnType;
 import cc.ssnoodles.db.entity.Column;
 import cc.ssnoodles.db.entity.Table;
-import cc.ssnoodles.db.util.ConnUtil;
+import cc.ssnoodles.db.template.data.ClassTemplate;
+import cc.ssnoodles.db.template.data.HeadNoteTemplate;
+import cc.ssnoodles.db.template.data.ImportTemplate;
 import cc.ssnoodles.db.util.DbCharsetTypeUtil;
 import cc.ssnoodles.db.util.FileUtil;
-import cc.ssnoodles.db.util.StringUtil;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author ssnoodles
  * @version 1.0
- * Create at 2018/7/13 08:46
+ * Create at 2018/8/23 23:56
  */
-public class DbHandler {
+public interface DbHandler {
 
-    public static final String LINE = System.getProperty("line.separator");
+    String OUTPATH = FileUtil.PROPERTIES.getProperty("outpath");
+    String USERNAME = FileUtil.PROPERTIES.getProperty("username");
+    String LINE = System.getProperty("line.separator");
 
-    public void handle(String db) throws SQLException {
-        Properties properties = FileUtil.PROPERTIES;
-        String outpath = properties.getProperty("outpath");
-        String username = properties.getProperty("username");
+    void execute() throws SQLException;
 
-        DbHandler dbHandler = new DbHandler();
-        List<Table> tableList = dbHandler.getTables(ConnUtil.getConn(), db, username);
-        for (Table table : tableList) {
-            StringBuilder sb = dbHandler.tableDataToString(table);
-            FileUtil.write2JavaFiles(outpath + StringUtil.underlineToHumpTopUpperCase(table.getName()), sb);
-        }
-    }
-
-    public StringBuilder tableDataToString(Table table) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("import lombok.Data;").append(LINE)
-                .append("import javax.persistence.*;").append(LINE)
-                .append("import java.math.BigDecimal;").append(LINE)
-                .append("import java.util.Date;").append(LINE)
-                .append("/**").append(LINE)
-                .append(" * ").append(table.getRemarks() == null ? "" : table.getRemarks()).append(LINE)
-                .append(" */").append(LINE)
-                .append("@Data").append(LINE)
-                .append("@Entity").append(LINE)
-                .append("@Table(name = \"").append(table.getName()).append("\")").append(LINE)
-                .append("public class ").append(StringUtil.underlineToHumpTopUpperCase(table.getName())).append(" {").append(LINE);
-        List<Column> columns = table.getColumns();
-        for (Column column : columns) {
-            sb.append("    /**").append(LINE)
-                    .append("     * ").append(column.getRemarks() == null ? "" : column.getRemarks()).append(LINE)
-                    .append("     */").append(LINE);
-            if (column.isPrimaryKey()) {
-                sb.append("    @Id").append(LINE);
-            }
-            sb.append("    @Column(name = \"").append(column.getName()).append("\")").append(LINE)
-                    .append("    private ");
-            if (!column.isDecimalDigits() && "NUMBER".equals(column.getType())) {
-                sb.append("Integer");
-            }else {
-                sb.append(ColumnType.get(column.getType().toUpperCase()));
-            }
-            sb.append(" ").append(StringUtil.underlineToHump(column.getName())).append(";").append(LINE);
-        }
-        sb.append("}");
-        return sb;
-    }
-
-    public List<Table> getTables(Connection conn, String dbType, String userName) throws SQLException {
+    default List<Table> getTables(Connection conn, String dbType, String userName) throws SQLException {
         DatabaseMetaData dbMetData = conn.getMetaData();
         ResultSet rs = dbMetData.getTables(null, DbCharsetTypeUtil.convertDatabaseCharsetType(userName, dbType),
                 null, new String[]{"TABLE"});

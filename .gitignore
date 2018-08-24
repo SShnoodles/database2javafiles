@@ -26,4 +26,9 @@ hs_err_pid*
 .idea
 target
 database2javafiles.iml
+.classpath
+.factorypath
+.project
+.settings
+tmp
 

@@ -1,7 +1,9 @@
 package cc.ssnoodles.db;
 
 import cc.ssnoodles.db.constant.DbType;
-import cc.ssnoodles.db.handler.DbHandler;
+import cc.ssnoodles.db.handler.MysqlDbHandler;
+import cc.ssnoodles.db.handler.OracleDbHandler;
+import cc.ssnoodles.db.handler.PostgreDbHandler;
 import cc.ssnoodles.db.util.FileUtil;
 
 import java.util.Properties;
@@ -18,16 +20,13 @@ public class Application {
         String db = properties.getProperty("db");
 
         if (DbType.ORACLE.getType().equals(db.toLowerCase())) {
-            DbHandler dbHandler = new DbHandler();
-            dbHandler.handle(DbType.ORACLE.getType());
+            new OracleDbHandler().execute();
         }
         if (DbType.POSTGRESQL.getType().equals(db.toLowerCase())) {
-            DbHandler dbHandler = new DbHandler();
-            dbHandler.handle(DbType.POSTGRESQL.getType());
+            new PostgreDbHandler().execute();
         }
         if (DbType.MYSQL.getType().equals(db.toLowerCase())) {
-            DbHandler dbHandler = new DbHandler();
-            dbHandler.handle(DbType.MYSQL.getType());
+            new MysqlDbHandler().execute();
         }
     }
 
