@@ -1,32 +1,14 @@
-package cc.ssnoodles.db.template.data;
-
-import cc.ssnoodles.db.entity.Column;
-import cc.ssnoodles.db.entity.Table;
+package cc.ssnoodles.db.template.imports;
 
 /**
  * @author ssnoodles
  * @version 1.0
  * Create at 2018/8/24 22:34
  */
-public class ImportTemplate implements Template {
+public class ImportTemplateImpl implements ImportTemplate {
 
     @Override
-    public String tableDataToString(Table table, Column column) {
-        return null;
-    }
-
-    @Override
-    public String tableDataToString(Table table) {
-        return null;
-    }
-
-    @Override
-    public String tableDataToString(Column column) {
-        return null;
-    }
-
-    @Override
-    public String tableDataToString() {
+    public String getTemplate() {
         StringBuilder sb = new StringBuilder();
         sb.append("import lombok.*;").append(LINE)
                 .append("import javax.persistence.*;").append(LINE)

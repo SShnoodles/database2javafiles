@@ -2,9 +2,7 @@ package cc.ssnoodles.db.handler;
 
 import cc.ssnoodles.db.entity.Column;
 import cc.ssnoodles.db.entity.Table;
-import cc.ssnoodles.db.template.data.ClassTemplate;
-import cc.ssnoodles.db.template.data.HeadNoteTemplate;
-import cc.ssnoodles.db.template.data.ImportTemplate;
+import cc.ssnoodles.db.template.Template;
 import cc.ssnoodles.db.util.DbCharsetTypeUtil;
 import cc.ssnoodles.db.util.FileUtil;
 
@@ -28,7 +26,7 @@ public interface DbHandler {
     String USERNAME = FileUtil.PROPERTIES.getProperty("username");
     String LINE = System.getProperty("line.separator");
 
-    void execute() throws SQLException;
+    void execute(Template template) throws SQLException;
 
     default List<Table> getTables(Connection conn, String dbType, String userName) throws SQLException {
         DatabaseMetaData dbMetData = conn.getMetaData();

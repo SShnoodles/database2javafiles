@@ -32,19 +32,17 @@ public class FileUtil {
         return properties;
     }
 
-    public static void write2JavaFiles(String path, StringBuilder sb) {
+    public static void write2JavaFiles(String path, String str) {
         File file = new File(path + SUFFIX);
         mkdirs(file);
         try {
             FileOutputStream outSTr = new FileOutputStream(file);
             BufferedOutputStream buff = new BufferedOutputStream(outSTr);
-            buff.write(sb.toString().getBytes(CODE));
+            buff.write(str.getBytes(CODE));
             buff.flush();
             buff.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        }catch (IOException e) {
+            throw new RuntimeException("File write failure, Please check file path.");
         }
     }
 
