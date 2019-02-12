@@ -3,9 +3,10 @@ package cc.ssnoodles.db.template.classes;
 import cc.ssnoodles.db.entity.Table;
 
 /**
+ * 类注释
  * @author ssnoodles
  * @version 1.0
- * Create at 2018/8/24 23:00
+ * Create at 2018/8/27 09:01
  */
 public class ClassNoteTemplateImpl implements ClassTemplate {
 

@@ -1,7 +1,6 @@
 package cc.ssnoodles.db.entity;
 
-import cc.ssnoodles.db.entity.Column;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
@@ -15,4 +14,5 @@ public class Table {
     private String name;
     private String remarks;
     private List<Column> columns;
+    private List<String> primaryKeys;
 }

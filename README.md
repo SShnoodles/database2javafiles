@@ -1,5 +1,5 @@
 # database2javafiles
-The database tables is transformed into java files
+Generating java files from database tables.
 
 download [jar.zip](https://github.com/SShnoodles/database2javafiles/releases)
 
@@ -20,6 +20,20 @@ port=1521
 servername=ORCL
 username=test
 password=123456
-outpath=/Users/ssnoodles/Documents/tmp/
+outpath=./tmp/
+template=jpa
+```
+
+# Templates
+Jpa、Dto、Common
+
+# Quick start
+```java
+// load config
+final Config config = FileUtil.PROPERTIES;
+// create factory
+DbFactory dbFactory = new DbFactoryImpl();
+// generate template
+dbFactory.create(config.getDb(), new JpaTemplate());
 ```
 

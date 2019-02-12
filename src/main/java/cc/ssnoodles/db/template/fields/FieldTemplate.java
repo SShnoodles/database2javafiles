@@ -5,7 +5,7 @@ import cc.ssnoodles.db.entity.Column;
 /**
  * @author ssnoodles
  * @version 1.0
- * Create at 2018/8/25 22:30
+ * Create at 2018/8/27 09:09
  */
 public interface FieldTemplate {
     String LINE = System.getProperty("line.separator");

@@ -5,7 +5,7 @@ import cc.ssnoodles.db.entity.Table;
 /**
  * @author ssnoodles
  * @version 1.0
- * Create at 2018/8/25 22:33
+ * Create at 2018/8/27 09:01
  */
 public interface ClassTemplate {
 

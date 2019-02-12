@@ -1,29 +1,24 @@
 package cc.ssnoodles.db.handler;
 
+import cc.ssnoodles.db.constant.DbType;
 import cc.ssnoodles.db.entity.Column;
 import cc.ssnoodles.db.entity.Table;
 import cc.ssnoodles.db.template.Template;
 import cc.ssnoodles.db.util.DbCharsetTypeUtil;
 import cc.ssnoodles.db.util.FileUtil;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.sql.*;
+import java.util.*;
 
 /**
  * @author ssnoodles
  * @version 1.0
- * Create at 2018/8/23 23:56
+ * Create at 2018/8/27 08:41
  */
 public interface DbHandler {
 
-    String OUTPATH = FileUtil.PROPERTIES.getProperty("outpath");
-    String USERNAME = FileUtil.PROPERTIES.getProperty("username");
+    String OUTPATH = FileUtil.PROPERTIES.getOutpath();
+    String USERNAME = FileUtil.PROPERTIES.getUsername();
     String LINE = System.getProperty("line.separator");
 
     void execute(Template template) throws SQLException;
@@ -38,8 +33,13 @@ public interface DbHandler {
             String tableRemarks = rs.getString("REMARKS");
             Table table = new Table();
             List<Column> columns = new ArrayList<>();
-            ResultSet colRet = dbMetData.getColumns(null, userName.toUpperCase(), tableName, "%");
-
+            ResultSet colRet;
+            // https://stackoverflow.com/questions/38557956/databasemetadatagetcolumns-returns-an-empty-resultset
+            if (DbType.ORACLE.getType().equals(dbType)) {
+                colRet = dbMetData.getColumns(null, userName.toUpperCase(), tableName, "%");
+            } else {
+                colRet = dbMetData.getColumns(userName, null, tableName, "%");
+            }
 
             while (colRet.next()) {
                 String columnName = colRet.getString("COLUMN_NAME");
@@ -64,10 +64,14 @@ public interface DbHandler {
             table.setName(tableName);
             table.setRemarks(tableRemarks);
             table.setColumns(newColumns);
-            tableList.add(table);
-            System.out.println(tableList.size() + ". " + tableName);
 
-            ResultSet primaryKeysRet = conn.getMetaData().getPrimaryKeys(null, userName.toUpperCase(), tableName);
+            ResultSet primaryKeysRet;
+            if (DbType.ORACLE.getType().equals(dbType)) {
+                primaryKeysRet = conn.getMetaData().getPrimaryKeys(null, userName.toUpperCase(), tableName);
+            } else {
+                primaryKeysRet = conn.getMetaData().getPrimaryKeys(userName, null, tableName);
+            }
+            List<String> primaryKeys = new ArrayList<>();
             while (primaryKeysRet.next()) {
                 String columnName = primaryKeysRet.getString("COLUMN_NAME");
                 for (Column column : columns) {
@@ -75,7 +79,12 @@ public interface DbHandler {
                         column.setPrimaryKey(true);
                     }
                 }
+                primaryKeys.add(columnName);
+
             }
+            table.setPrimaryKeys(primaryKeys);
+            tableList.add(table);
+            System.out.println(tableList.size() + ". " + tableName);
         }
         return tableList;
     }

@@ -2,23 +2,46 @@ package cc.ssnoodles.db.template;
 
 import cc.ssnoodles.db.entity.Column;
 import cc.ssnoodles.db.entity.Table;
-import cc.ssnoodles.db.template.classes.ClassAnnotationTemplateImpl;
-import cc.ssnoodles.db.template.classes.ClassNoteTemplateImpl;
-import cc.ssnoodles.db.template.classes.ClassTemplateImpl;
-import cc.ssnoodles.db.template.fields.FieldAnnotationTemplateImpl;
-import cc.ssnoodles.db.template.fields.FieldNoteTemplateImpl;
-import cc.ssnoodles.db.template.fields.FieldTemplateImpl;
+import cc.ssnoodles.db.template.classes.*;
+import cc.ssnoodles.db.template.fields.*;
 import cc.ssnoodles.db.template.imports.ImportTemplateImpl;
 
 import java.util.List;
 
 /**
+ * jpa 模板
  * @author ssnoodles
  * @version 1.0
- * Create at 2018/8/24 23:08
+ * Create at 2018/8/27 09:22
  */
 public class JpaTemplate implements Template {
-
+    // 生成模板样式
+    //
+    // /**
+    //  * 数据字典数据明细
+    //  */
+    // @Data
+    // @Entity
+    // @Table(name = "BASIC_DIC_ITEMS")
+    // @EqualsAndHashCode(of = "guid")
+    // @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    // public class BasicDicItems {
+    //     public BasicDicItems(String guid) {
+    //         this.guid = guid;
+    //     }
+    //    /**
+    //     * 主键
+    //      */
+    //     @Id
+    //     @Setter(AccessLevel.PROTECTED)
+    //     @Column(name = "GUID")
+    //     private String guid;
+    //     /**
+    //      * 编辑人主键
+    //      */
+    //     @Column(name = "EDITOR_GUID")
+    //     private String editorGuid;
+    // }
     @Override
     public String tableDataToString(Table table) {
         StringBuilder sb = new StringBuilder();
@@ -27,8 +50,10 @@ public class JpaTemplate implements Template {
         sb.append(new ClassNoteTemplateImpl().getTemplate(table));
         sb.append(new ClassAnnotationTemplateImpl().getTemplate(table));
         sb.append(new ClassTemplateImpl().getTemplate(table));
+        sb.append(new ClassConstructorTemplate().getTemplate(table));
         List<Column> columns = table.getColumns();
         for (Column column : columns) {
+            sb.append(LINE);
             sb.append(new FieldNoteTemplateImpl().getTemplate(column));
             sb.append(new FieldAnnotationTemplateImpl().getTemplate(column));
             sb.append(new FieldTemplateImpl().getTemplate(column));

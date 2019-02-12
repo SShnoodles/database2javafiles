@@ -1,23 +1,21 @@
 package cc.ssnoodles.db.factory;
 
 import cc.ssnoodles.db.constant.DbType;
-import cc.ssnoodles.db.handler.MysqlDbHandler;
-import cc.ssnoodles.db.handler.OracleDbHandler;
-import cc.ssnoodles.db.handler.PostgreDbHandler;
-import cc.ssnoodles.db.template.JpaTemplate;
-import cc.ssnoodles.db.template.Template;
+import cc.ssnoodles.db.constant.TemplateType;
+import cc.ssnoodles.db.handler.*;
+import cc.ssnoodles.db.template.*;
 
 import java.sql.SQLException;
 
 /**
  * @author ssnoodles
  * @version 1.0
- * Create at 2018/8/25 21:38
+ * Create at 2018/8/27 08:36
  */
-public class DbFactoryImpl implements DbFactory{
+public class DbFactoryImpl implements DbFactory {
 
     @Override
-    public void toJavaFiles(String dbType, Template template) throws SQLException {
+    public void create(String dbType, Template template) throws SQLException {
         if (DbType.ORACLE.getType().equals(dbType.toLowerCase())) {
             new OracleDbHandler().execute(template);
         }
@@ -26,6 +24,19 @@ public class DbFactoryImpl implements DbFactory{
         }
         if (DbType.MYSQL.getType().equals(dbType.toLowerCase())) {
             new MysqlDbHandler().execute(template);
+        }
+    }
+
+    @Override
+    public Template getTemplate(String templateType) {
+        if (TemplateType.JPA.getType().equals(templateType)) {
+            return new JpaTemplate();
+        }
+        else if (TemplateType.DTO.getType().equals(templateType)) {
+            return new DtoTemplate();
+        }
+        else {
+            return new CommonTemplate();
         }
     }
 }

@@ -1,6 +1,6 @@
 package cc.ssnoodles.db.entity;
 
-import lombok.Data;
+import lombok.*;
 
 /**
  * @author ssnoodles

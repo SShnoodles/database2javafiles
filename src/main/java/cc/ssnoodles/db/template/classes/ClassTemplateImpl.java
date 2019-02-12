@@ -4,9 +4,10 @@ import cc.ssnoodles.db.entity.Table;
 import cc.ssnoodles.db.util.StringUtil;
 
 /**
+ * 类名
  * @author ssnoodles
  * @version 1.0
- * Create at 2018/8/25 22:18
+ * Create at 2018/8/27 09:01
  */
 public class ClassTemplateImpl implements ClassTemplate {
     @Override

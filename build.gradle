@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '4.0.4'
+}
+
+group 'cc.ssnoodles.db'
+version '2.0'
+
+sourceCompatibility = 1.8
+
+apply plugin: 'maven-publish'
+
+repositories {
+    maven {
+        url 'http://repo.spring.io/plugins-release/'
+    }
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.5'
+    compile group: 'com.oracle', name: 'ojdbc6', version: '11.2.0.3'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.14'
+}
+
+jar {
+    manifest.attributes 'Main-Class': 'cc.ssnoodles.db.Application'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}

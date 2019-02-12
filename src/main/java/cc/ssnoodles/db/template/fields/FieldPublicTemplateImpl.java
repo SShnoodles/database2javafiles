@@ -5,9 +5,10 @@ import cc.ssnoodles.db.entity.Column;
 import cc.ssnoodles.db.util.StringUtil;
 
 /**
+ * 字段 public
  * @author ssnoodles
  * @version 1.0
- * Create at 2018/8/25 23:20
+ * Create at 2018/8/27 09:09
  */
 public class FieldPublicTemplateImpl implements FieldTemplate{
     @Override

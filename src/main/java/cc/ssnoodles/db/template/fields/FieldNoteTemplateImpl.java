@@ -3,9 +3,10 @@ package cc.ssnoodles.db.template.fields;
 import cc.ssnoodles.db.entity.Column;
 
 /**
+ * 字段注释 /**
  * @author ssnoodles
  * @version 1.0
- * Create at 2018/8/24 23:21
+ * Create at 2018/8/27 09:09
  */
 public class FieldNoteTemplateImpl implements FieldTemplate {
 

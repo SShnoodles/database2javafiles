@@ -1,10 +1,9 @@
 package cc.ssnoodles.db;
 
+import cc.ssnoodles.db.entity.Config;
 import cc.ssnoodles.db.factory.DbFactory;
 import cc.ssnoodles.db.factory.DbFactoryImpl;
-import cc.ssnoodles.db.template.CommonTemplate;
-import cc.ssnoodles.db.template.DtoTemplate;
-import cc.ssnoodles.db.template.JpaTemplate;
+import cc.ssnoodles.db.template.Template;
 import cc.ssnoodles.db.util.FileUtil;
 
 /**
@@ -14,12 +13,24 @@ import cc.ssnoodles.db.util.FileUtil;
  */
 public class Application {
 
-    private static final String DB = FileUtil.PROPERTIES.getProperty("db");
-
+    /**
+     * Specify template
+     * 1.JpaTemplate、DtoTemplate、CommonTemplate
+     * 2.If you need a specific template, implement Template interface.
+     * 3.If you need a specific sub-template, implement them：
+     *  ImportTemplate、ClassTemplate、FieldTemplate
+     *
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
+        // load config
+        final Config config = FileUtil.PROPERTIES;
+        // create factory
         DbFactory dbFactory = new DbFactoryImpl();
-        // To specify template
-        dbFactory.toJavaFiles(DB, new CommonTemplate());
+        // generate template
+        Template template = dbFactory.getTemplate(config.getTemplate());
+        dbFactory.create(config.getDb(), template);
     }
 
 }
