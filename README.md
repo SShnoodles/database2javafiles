@@ -3,6 +3,8 @@ Generating java files from database tables.
 
 download [jar.zip](https://github.com/SShnoodles/database2javafiles/releases)
 
+New plugin!!! [Idea Plugin](https://github.com/SShnoodles/db2j-idea-plugin)
+
 # Support database
 - oracle
 - postgresql
