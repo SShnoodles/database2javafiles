@@ -47,7 +47,7 @@ public enum ColumnType {
     public static String get(String type) {
         ColumnType[] values = values();
         for (ColumnType value : values) {
-            if (value.name().equals(type)) {
+            if (value.name().equalsIgnoreCase(type)) {
                 return value.getJavaType();
             }
         }
