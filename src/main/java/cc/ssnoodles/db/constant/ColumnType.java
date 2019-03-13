@@ -24,6 +24,7 @@ public enum ColumnType {
     INT8("Long"),
     TIMESTAMP("OffsetDateTime"),
     BOOL("Boolean"),
+    BOOLEAN("Boolean"),
     NUMERIC("BigDecimal"),
 
     LONGTEXT("String"),

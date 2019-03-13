@@ -59,4 +59,17 @@ public class DbFactoryImpl implements DbFactory {
         }
         return templates;
     }
+
+    @Override
+    public Template getTemplate(String templateType) {
+        if (TemplateType.JPA.getType().equals(templateType)) {
+            return new JpaTemplate();
+        }
+        else if (TemplateType.DTO.getType().equals(templateType)) {
+            return new DtoTemplate();
+        }
+        else {
+            return new CommonTemplate();
+        }
+    }
 }

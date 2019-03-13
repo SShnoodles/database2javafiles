@@ -16,4 +16,6 @@ public interface DbFactory {
     void create(String dbType, Template template) throws SQLException;
 
     List<Template> getTemplates(String[] templateType);
+
+    Template getTemplate(String templateType);
 }
