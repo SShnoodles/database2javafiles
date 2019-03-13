@@ -6,6 +6,8 @@ import cc.ssnoodles.db.factory.DbFactoryImpl;
 import cc.ssnoodles.db.template.Template;
 import cc.ssnoodles.db.util.FileUtil;
 
+import java.util.List;
+
 /**
  * @author ssnoodles
  * @version 1.0
@@ -29,8 +31,8 @@ public class Application {
         // create factory
         DbFactory dbFactory = new DbFactoryImpl();
         // generate template
-        Template template = dbFactory.getTemplate(config.getTemplate());
-        dbFactory.create(config.getDb(), template);
+        List<Template> templates = dbFactory.getTemplates(config.getTemplates());
+        dbFactory.create(config.getDb(), templates);
     }
 
 }

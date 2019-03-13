@@ -8,7 +8,12 @@ package cc.ssnoodles.db.constant;
 public enum TemplateType {
     JPA("jpa"),
     DTO("dto"),
-    COMMON("common");
+    COMMON("common"),
+    REPOSITORY("repository"),
+    CONTROLLER("controller"),
+    FORM("form"),
+    CRITERIA("criteria"),
+    REF("ref");
 
     private String type;
 

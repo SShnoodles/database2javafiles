@@ -15,4 +15,8 @@ public interface Template {
     String END = "}";
 
     String tableDataToString(Table table);
+
+    default String endsWith() {
+        return "";
+    }
 }

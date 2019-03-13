@@ -1,13 +1,11 @@
 package cc.ssnoodles.db.template.classes;
 
 import cc.ssnoodles.db.constant.ColumnType;
-import cc.ssnoodles.db.constant.DbType;
 import cc.ssnoodles.db.entity.*;
 import cc.ssnoodles.db.util.FileUtil;
 import cc.ssnoodles.db.util.StringUtil;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**

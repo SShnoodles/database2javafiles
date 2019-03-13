@@ -24,5 +24,7 @@ public class Config {
 
     private String outpath;
 
-    private String template;
+    private String[] templates;
+
+    private String author;
 }

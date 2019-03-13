@@ -23,4 +23,9 @@ public class RepositoryTemplate implements Template{
         sb.append(END);
         return sb.toString();
     }
+
+    @Override
+    public String endsWith() {
+        return "Repository";
+    }
 }

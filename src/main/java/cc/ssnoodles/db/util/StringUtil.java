@@ -25,4 +25,19 @@ public class StringUtil {
         String s = underlineToHump(str);
         return s.substring(0, 1).toUpperCase() + s.substring(1);
     }
+
+    public static String underlineUrl(String str) {
+        StringBuilder result = new StringBuilder();
+        String[] a = str.split("_");
+        for (String s : a) {
+            result.append(s.toLowerCase());
+            result.append("/");
+        }
+        String s = result.toString();
+        return s.substring(0, s.length() - 1);
+    }
+
+    public static boolean isEmpty(String str) {
+        return (str == null || "".equals(str));
+    }
 }

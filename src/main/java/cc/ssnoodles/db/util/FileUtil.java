@@ -31,35 +31,54 @@ public class FileUtil {
                 throw new RuntimeException("Load configuration file failed");
             }
         }
-        return Config.builder()
-                .db(properties.getProperty("db"))
-                .host(properties.getProperty("host"))
-                .port(properties.getProperty("port"))
-                .servername(properties.getProperty("servername"))
-                .username(properties.getProperty("username"))
-                .password(properties.getProperty("password"))
-                .outpath(properties.getProperty("outpath"))
-                .template(properties.getProperty("template"))
-                .build();
+        try {
+            return Config.builder()
+                    .db(properties.getProperty("db"))
+                    .host(properties.getProperty("host"))
+                    .port(properties.getProperty("port"))
+                    .servername(properties.getProperty("servername"))
+                    .username(properties.getProperty("username"))
+                    .password(properties.getProperty("password"))
+                    .outpath(properties.getProperty("outpath"))
+                    .templates(properties.getProperty("templates").split(","))
+                    .author(properties.getProperty("author"))
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException("Load configuration file failed");
+        }
     }
 
     public static void write2JavaFiles(String path, String str) {
         File file = new File(path + SUFFIX);
         mkdirs(file);
+        FileOutputStream ops = null;
+        BufferedOutputStream buff = null;
         try {
-            FileOutputStream outSTr = new FileOutputStream(file);
-            BufferedOutputStream buff = new BufferedOutputStream(outSTr);
+            ops = new FileOutputStream(file);
+            buff = new BufferedOutputStream(ops);
             buff.write(str.getBytes(CODE));
             buff.flush();
-            buff.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (buff != null) {
+                try {
+                    buff.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ops != null) {
+                try {
+                    ops.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
-    public static void mkdirs(File file) {
+    private static void mkdirs(File file) {
         File fileParent = file.getParentFile();
         if (!fileParent.exists()) {
             fileParent.mkdirs();

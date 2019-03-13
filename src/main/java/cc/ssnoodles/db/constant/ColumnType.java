@@ -10,7 +10,7 @@ public enum ColumnType {
     VARCHAR("String"),
     VARCHAR2("String"),
     NVARCHAR2("String"),
-    DATE("OffsetDateTime"),
+    DATE("LocalDate"),
     DATETIME("OffsetDateTime"),
     NUMBER("BigDecimal"),
 

@@ -21,7 +21,7 @@ public interface DbHandler {
     String USERNAME = FileUtil.PROPERTIES.getUsername();
     String LINE = System.getProperty("line.separator");
 
-    void execute(Template template) throws SQLException;
+    void execute(List<Template> templates) throws SQLException;
 
     default List<Table> getTables(Connection conn, String dbType, String userName) throws SQLException {
         DatabaseMetaData dbMetData = conn.getMetaData();

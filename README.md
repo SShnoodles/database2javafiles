@@ -3,7 +3,7 @@ Generating java files from database tables.
 
 download [jar.zip](https://github.com/SShnoodles/database2javafiles/releases)
 
-New plugin!!! [Idea Plugin](https://github.com/SShnoodles/db2j-idea-plugin)
+**New plugin!!!** [Idea Plugin](https://github.com/SShnoodles/db2j-idea-plugin)
 
 # Support database
 - oracle
@@ -23,11 +23,12 @@ servername=ORCL
 username=test
 password=123456
 outpath=./tmp/
-template=jpa
+templates=jpa,repository
+author=ssnoodles
 ```
 
 # Templates
-Jpa、Dto、Common
+Jpa、Dto、Common、Repository、Controller
 
 # Quick start
 ```java

@@ -1,17 +1,20 @@
-package cc.ssnoodles.db.template.classes;
+package cc.ssnoodles.db.template.functions;
 
 import cc.ssnoodles.db.entity.Table;
 
 /**
+ * 方法
  * @author ssnoodles
  * @version 1.0
- * Create at 2018/8/27 09:01
+ * Create at 2019-03-13 09:37
  */
-public interface ClassTemplate {
+public interface FunctionTemplate {
 
     String LINE = System.getProperty("line.separator");
 
     String BEGIN = "{";
+
+    String END = "}";
 
     String getTemplate(Table table);
 
@@ -28,5 +31,4 @@ public interface ClassTemplate {
     String Dto = "Dto";
 
     String REF = "Ref";
-
 }

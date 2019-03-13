@@ -15,10 +15,12 @@ import java.util.List;
  */
 public class PostgreDbHandler implements DbHandler {
     @Override
-    public void execute(Template template) throws SQLException {
+    public void execute(List<Template> templates) throws SQLException {
         List<Table> tableList = getTables(ConnUtil.getConn(), DbType.POSTGRESQL.getType(), USERNAME);
-        tableList.forEach(table -> FileUtil.write2JavaFiles(
-                OUTPATH + StringUtil.underlineToHumpTopUpperCase(table.getName()),
-                template.tableDataToString(table)));
+        tableList.forEach(table -> {
+            templates.forEach(template -> FileUtil.write2JavaFiles(
+                    OUTPATH + StringUtil.underlineToHumpTopUpperCase(table.getName()) + template.endsWith(),
+                    template.tableDataToString(table)));
+        });
     }
 }
