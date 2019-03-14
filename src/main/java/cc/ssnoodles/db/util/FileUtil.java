@@ -51,30 +51,13 @@ public class FileUtil {
     public static void write2JavaFiles(String path, String str) {
         File file = new File(path + SUFFIX);
         mkdirs(file);
-        FileOutputStream ops = null;
-        BufferedOutputStream buff = null;
-        try {
-            ops = new FileOutputStream(file);
-            buff = new BufferedOutputStream(ops);
+        try (FileOutputStream ops = new FileOutputStream(file);
+             BufferedOutputStream buff = new BufferedOutputStream(ops)) {
             buff.write(str.getBytes(CODE));
             buff.flush();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (buff != null) {
-                try {
-                    buff.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (ops != null) {
-                try {
-                    ops.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            throw new RuntimeException("Write java file failed, Path: " + path + SUFFIX);
         }
     }
 
@@ -82,6 +65,33 @@ public class FileUtil {
         File fileParent = file.getParentFile();
         if (!fileParent.exists()) {
             fileParent.mkdirs();
+        }
+    }
+
+
+    public static void write2IfExistFiles(String path, String noExistStr, String existStr) {
+        File file = new File(path + SUFFIX);
+        if (file.exists()) {
+            String separator = System.getProperty("line.separator");
+
+            try (FileReader reader = new FileReader(file);
+                 BufferedReader br = new BufferedReader(reader)) {
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    if (line.contains("}")) {
+                        break;
+                    }
+                    sb.append(line).append(separator);
+                }
+                sb.append(separator);
+                sb.append(existStr);
+                write2JavaFiles(path, sb.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            write2JavaFiles(path, noExistStr);
         }
     }
 }
