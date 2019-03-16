@@ -3,6 +3,7 @@ package cc.ssnoodles.db.template;
 import cc.ssnoodles.db.entity.Table;
 import cc.ssnoodles.db.template.classes.ClassUpdaterTemplateImpl;
 import cc.ssnoodles.db.template.functions.UpdaterFunctionTemplateImpl;
+import cc.ssnoodles.db.template.imports.ImportMapperTemplateImpl;
 
 /**
  * @author ssnoodles
@@ -13,6 +14,7 @@ public class UpdaterTemplate implements Template {
     @Override
     public String tableDataToString(Table table) {
         StringBuilder sb = new StringBuilder();
+        sb.append(new ImportMapperTemplateImpl().getTemplate());
         sb.append(new ClassUpdaterTemplateImpl().getTemplate(table));
         sb.append(new UpdaterFunctionTemplateImpl().getTemplate(table));
         sb.append(END);

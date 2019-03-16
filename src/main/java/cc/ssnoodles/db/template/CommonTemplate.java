@@ -6,6 +6,7 @@ import cc.ssnoodles.db.template.classes.ClassNoteTemplateImpl;
 import cc.ssnoodles.db.template.classes.ClassTemplateImpl;
 import cc.ssnoodles.db.template.fields.FieldNoteTemplateImpl;
 import cc.ssnoodles.db.template.fields.FieldTemplateImpl;
+import cc.ssnoodles.db.template.imports.ImportSimpleTemplateImpl;
 
 import java.util.List;
 
@@ -30,6 +31,8 @@ public class CommonTemplate implements Template{
     @Override
     public String tableDataToString(Table table) {
         StringBuilder sb = new StringBuilder();
+        sb.append(new ImportSimpleTemplateImpl().getTemplate());
+        sb.append(LINE);
         sb.append(new ClassNoteTemplateImpl().getTemplate(table));
         sb.append(new ClassTemplateImpl().getTemplate(table));
         List<Column> columns = table.getColumns();

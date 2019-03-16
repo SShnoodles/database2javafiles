@@ -4,6 +4,7 @@ package cc.ssnoodles.db.template;
 import cc.ssnoodles.db.entity.Table;
 import cc.ssnoodles.db.template.classes.ClassNoteTemplateImpl;
 import cc.ssnoodles.db.template.classes.ClassRefTemplateImpl;
+import cc.ssnoodles.db.template.imports.ImportSimpleTemplateImpl;
 
 /**
  * @author ssnoodles
@@ -22,6 +23,8 @@ public class RefTemplate implements Template {
     @Override
     public String tableDataToString(Table table) {
         StringBuilder sb = new StringBuilder();
+        sb.append(new ImportSimpleTemplateImpl().getTemplate());
+        sb.append(LINE);
         sb.append(new ClassNoteTemplateImpl().getTemplate(table));
         sb.append(new ClassRefTemplateImpl().getTemplate(table));
         sb.append("    public String id;").append(LINE);
