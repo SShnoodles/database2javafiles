@@ -18,6 +18,7 @@ public class DeleteFunctionTemplateImpl implements FunctionTemplate {
         StringBuilder sb = new StringBuilder();
         sb.append(SPACE).append("/**").append(LINE)
                 .append(SPACE).append(" * 删除").append(LINE)
+                .append(SPACE).append(" * @param id 主键").append(LINE)
                 .append(SPACE).append(" */").append(LINE)
                 .append(SPACE).append("@DeleteMapping(\"{id}\")").append(LINE)
                 .append(SPACE).append("@Transactional(rollbackFor = Exception.class)").append(LINE)

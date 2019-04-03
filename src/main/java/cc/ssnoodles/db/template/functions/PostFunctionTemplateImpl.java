@@ -18,6 +18,8 @@ public class PostFunctionTemplateImpl implements FunctionTemplate {
         StringBuilder sb = new StringBuilder();
         sb.append(SPACE).append("/**").append(LINE)
                 .append(SPACE).append(" * 新增").append(LINE)
+                .append(SPACE).append(" * @param form 新增数据").append(LINE)
+                .append(SPACE).append(" * @return 主键").append(LINE)
                 .append(SPACE).append(" */").append(LINE)
                 .append(SPACE).append("@PostMapping").append(LINE)
                 .append(SPACE).append("@Transactional(rollbackFor = Exception.class)").append(LINE)

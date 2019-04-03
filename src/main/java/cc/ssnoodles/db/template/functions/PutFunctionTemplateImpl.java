@@ -18,6 +18,8 @@ public class PutFunctionTemplateImpl implements FunctionTemplate {
         StringBuilder sb = new StringBuilder();
         sb.append(SPACE).append("/**").append(LINE)
                 .append(SPACE).append(" * 修改").append(LINE)
+                .append(SPACE).append(" * @param id 主键").append(LINE)
+                .append(SPACE).append(" * @param form 修改数据").append(LINE)
                 .append(SPACE).append(" */").append(LINE)
                 .append(SPACE).append("@PutMapping(\"{id}\")").append(LINE)
                 .append(SPACE).append("@Transactional(rollbackFor = Exception.class)").append(LINE)

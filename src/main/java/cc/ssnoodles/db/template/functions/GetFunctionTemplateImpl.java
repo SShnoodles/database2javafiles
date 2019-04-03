@@ -18,6 +18,8 @@ public class GetFunctionTemplateImpl implements FunctionTemplate {
         StringBuilder sb = new StringBuilder();
         sb.append(SPACE).append("/**").append(LINE)
                 .append(SPACE).append(" * 查询单条").append(LINE)
+                .append(SPACE).append(" * @param id 主键").append(LINE)
+                .append(SPACE).append(" * @return 单条数据").append(LINE)
                 .append(SPACE).append(" */").append(LINE)
                 .append(SPACE).append("@GetMapping(\"{id}\")").append(LINE)
                 .append(SPACE).append("public ").append(tableNameUpperCase).append(Dto).append(" get(@PathVariable String id) {").append(LINE)

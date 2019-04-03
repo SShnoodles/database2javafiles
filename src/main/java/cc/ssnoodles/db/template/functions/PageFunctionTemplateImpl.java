@@ -22,6 +22,9 @@ public class PageFunctionTemplateImpl implements FunctionTemplate {
         StringBuilder sb = new StringBuilder();
         sb.append(SPACE).append("/**").append(LINE)
                 .append(SPACE).append(" * 查询列表").append(LINE)
+                .append(SPACE).append(" * @param pageable 分页参数").append(LINE)
+                .append(SPACE).append(" * @param criteria 查询条件").append(LINE)
+                .append(SPACE).append(" * @return 列表数据").append(LINE)
                 .append(SPACE).append(" */").append(LINE)
                 .append(SPACE).append("@GetMapping").append(LINE)
                 .append(SPACE).append("public Page<").append(tableNameUpperCase).append(Dto).append("> get(@SortDefault(direction = Sort.Direction.DESC) Pageable pageable, ").append(tableNameUpperCase).append(CRITERIA).append(" criteria) {").append(LINE)
