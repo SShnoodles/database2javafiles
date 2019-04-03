@@ -19,7 +19,7 @@ public class PutFunctionTemplateImpl implements FunctionTemplate {
         sb.append(SPACE).append("/**").append(LINE)
                 .append(SPACE).append(" * 修改").append(LINE)
                 .append(SPACE).append(" */").append(LINE)
-                .append(SPACE).append("@PutMapping").append(LINE)
+                .append(SPACE).append("@PutMapping(\"{id}\")").append(LINE)
                 .append(SPACE).append("@Transactional(rollbackFor = Exception.class)").append(LINE)
                 .append(SPACE).append("public void update(@PathVariable String id, @RequestBody ").append(tableNameUpperCase).append(FORM).append(" form").append(") {").append(LINE)
                 .append(SPACE).append(SPACE).append(tableNameUpperCase).append(" ").append(tableName).append(" = ").append(tableName).append(REPOSITORY).append(".findById(id).orElseThrow(NotFoundException::new);").append(LINE)

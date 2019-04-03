@@ -44,4 +44,9 @@ public class CommonTemplate implements Template{
         sb.append(END);
         return sb.toString();
     }
+
+    @Override
+    public String endsWith() {
+        return "Do";
+    }
 }
