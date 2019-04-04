@@ -83,7 +83,7 @@ public class FileUtil {
                 StringBuilder sb = new StringBuilder();
                 String line;
                 while ((line = br.readLine()) != null) {
-                    if (line.contains("}")) {
+                    if (line.contains("}") && !line.contains("})")) {
                         break;
                     }
                     sb.append(line).append(separator);
