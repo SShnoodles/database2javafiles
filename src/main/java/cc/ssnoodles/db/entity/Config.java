@@ -27,4 +27,6 @@ public class Config {
     private String[] templates;
 
     private String author;
+
+    private boolean overwritefiles;
 }

@@ -19,6 +19,7 @@ public interface DbHandler {
 
     String OUTPATH = FileUtil.PROPERTIES.getOutpath();
     String USERNAME = FileUtil.PROPERTIES.getUsername();
+    boolean OVERWRITEFILES = FileUtil.PROPERTIES.isOverwritefiles();
     String LINE = System.getProperty("line.separator");
 
     void execute(List<Template> templates) throws SQLException;

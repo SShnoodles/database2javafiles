@@ -17,7 +17,7 @@ public class Application {
 
     /**
      * Specify template
-     * 1.JpaTemplate、DtoTemplate、CommonTemplate
+     * 1.JpaTemplate、DtoTemplate、CommonTemplate、ControllerTemplate
      * 2.If you need a specific template, implement Template interface.
      * 3.If you need a specific sub-template, implement them：
      *  ImportTemplate、ClassTemplate、FieldTemplate

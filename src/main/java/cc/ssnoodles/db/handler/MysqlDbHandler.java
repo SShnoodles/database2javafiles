@@ -20,7 +20,8 @@ public class MysqlDbHandler implements DbHandler {
         tableList.forEach(table -> {
             templates.forEach(template -> FileUtil.write2JavaFiles(
                     OUTPATH + StringUtil.underlineToHumpTopUpperCase(table.getName()) + template.endsWith(),
-                    template.tableDataToString(table)));
+                    template.tableDataToString(table),
+                    OVERWRITEFILES));
         });
     }
 }

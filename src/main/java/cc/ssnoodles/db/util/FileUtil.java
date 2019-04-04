@@ -42,14 +42,18 @@ public class FileUtil {
                     .outpath(properties.getProperty("outpath"))
                     .templates(properties.getProperty("templates").split(","))
                     .author(properties.getProperty("author"))
+                    .overwritefiles(Boolean.valueOf(properties.getProperty("overwritefiles")))
                     .build();
         } catch (Exception e) {
             throw new RuntimeException("Load configuration file failed");
         }
     }
 
-    public static void write2JavaFiles(String path, String str) {
+    public static void write2JavaFiles(String path, String str, boolean isOverwriteFiles) {
         File file = new File(path + SUFFIX);
+        if (file.exists() && !isOverwriteFiles) {
+            return;
+        }
         mkdirs(file);
         try (FileOutputStream ops = new FileOutputStream(file);
              BufferedOutputStream buff = new BufferedOutputStream(ops)) {
@@ -86,12 +90,12 @@ public class FileUtil {
                 }
                 sb.append(separator);
                 sb.append(existStr);
-                write2JavaFiles(path, sb.toString());
+                write2JavaFiles(path, sb.toString(), true);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else {
-            write2JavaFiles(path, noExistStr);
+        } else {
+            write2JavaFiles(path, noExistStr, true);
         }
     }
 }
