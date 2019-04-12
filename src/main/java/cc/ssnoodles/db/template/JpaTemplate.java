@@ -43,14 +43,14 @@ public class JpaTemplate implements Template {
     //     private String editorGuid;
     // }
     @Override
-    public String tableDataToString(Table table) {
+    public String tableDataToString(Table table, String newClassName) {
         StringBuilder sb = new StringBuilder();
         sb.append(new ImportTemplateImpl().getTemplate());
         sb.append(LINE);
-        sb.append(new ClassNoteTemplateImpl().getTemplate(table));
-        sb.append(new ClassAnnotationTemplateImpl().getTemplate(table));
-        sb.append(new ClassTemplateImpl().getTemplate(table));
-        sb.append(new ClassConstructorTemplate().getTemplate(table));
+        sb.append(new ClassNoteTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new ClassAnnotationTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new ClassTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new ClassConstructorTemplate().getTemplate(table, newClassName));
         List<Column> columns = table.getColumns();
         for (Column column : columns) {
             sb.append(LINE);

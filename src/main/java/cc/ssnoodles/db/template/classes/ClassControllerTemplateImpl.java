@@ -11,10 +11,10 @@ import cc.ssnoodles.db.util.StringUtil;
  */
 public class ClassControllerTemplateImpl implements ClassTemplate {
     @Override
-    public String getTemplate(Table table) {
-        String tableNameUpperCase = StringUtil.underlineToHumpTopUpperCase(table.getName());
-        String tableName = StringUtil.underlineToHump(table.getName());
-        String tableUrl = StringUtil.underlineUrl(table.getName());
+    public String getTemplate(Table table, String newClassName) {
+        String tableNameUpperCase = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHumpTopUpperCase(table.getName()) : newClassName;
+        String tableName = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHump(table.getName()) : StringUtil.topLowerCase(newClassName);
+        String tableUrl = StringUtil.isEmpty(newClassName) ? StringUtil.underlineUrl(table.getName()) : StringUtil.toUrl(newClassName);
 
         StringBuilder sb = new StringBuilder();
         // 依赖

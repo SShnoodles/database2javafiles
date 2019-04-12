@@ -34,6 +34,19 @@ public class DbFactoryImpl implements DbFactory {
     }
 
     @Override
+    public void create(String dbType, Template template, String singleTableName, String singleTableRename) throws SQLException {
+        if (DbType.ORACLE.getType().equals(dbType.toLowerCase())) {
+            new OracleDbHandler().execute(template, singleTableName, singleTableRename);
+        }
+        if (DbType.POSTGRESQL.getType().equals(dbType.toLowerCase())) {
+            new PostgreDbHandler().execute(template, singleTableName, singleTableRename);
+        }
+        if (DbType.MYSQL.getType().equals(dbType.toLowerCase())) {
+            new MysqlDbHandler().execute(template, singleTableName, singleTableRename);
+        }
+    }
+
+    @Override
     public List<Template> getTemplates(String[] templateTypes) {
         List<Template> templates = new ArrayList<>(8);
         for (String templateType : templateTypes) {
@@ -48,9 +61,9 @@ public class DbFactoryImpl implements DbFactory {
             }
             else if (TemplateType.CONTROLLER.getType().equalsIgnoreCase(templateType)) {
                 templates.add(new CriteriaTemplate());
-                templates.add(new FormTemplate());
-                templates.add(new DtoTemplate());
-                templates.add(new RefTemplate());
+                templates.add(new NewDataTemplate());
+                templates.add(new UpdateTemplate());
+                templates.add(new RecordTemplate());
                 templates.add(new ControllerTemplate());
             }
             else {

@@ -16,7 +16,7 @@ public interface FunctionTemplate {
 
     String END = "}";
 
-    String getTemplate(Table table);
+    String getTemplate(Table table, String newClassName);
 
     String SPACE = "    ";
 
@@ -26,9 +26,13 @@ public interface FunctionTemplate {
 
     String CRITERIA = "Criteria";
 
-    String FORM = "Form";
+    String DATA = "Data";
 
-    String Dto = "Dto";
+    String NEW = "New";
+
+    String UPDATE = "Update";
+
+    String RECORD = "Record";
 
     String REF = "Ref";
 }

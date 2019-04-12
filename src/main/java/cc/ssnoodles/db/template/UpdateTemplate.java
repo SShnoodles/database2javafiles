@@ -2,44 +2,32 @@ package cc.ssnoodles.db.template;
 
 import cc.ssnoodles.db.entity.Column;
 import cc.ssnoodles.db.entity.Table;
-import cc.ssnoodles.db.template.classes.ClassNoteTemplateImpl;
-import cc.ssnoodles.db.template.classes.ClassTemplateImpl;
+import cc.ssnoodles.db.template.classes.*;
 import cc.ssnoodles.db.template.fields.FieldNoteTemplateImpl;
-import cc.ssnoodles.db.template.fields.FieldTemplateImpl;
+import cc.ssnoodles.db.template.fields.FieldPublicTemplateImpl;
 import cc.ssnoodles.db.template.imports.ImportSimpleTemplateImpl;
 
 import java.util.List;
 
 /**
- * 通用模板
  * @author ssnoodles
  * @version 1.0
- * Create at 2018/8/27 09:22
+ * Create at 2019-03-13 09:20
  */
-public class CommonTemplate implements Template{
-    // 生成模板样式
-    //
-    // /**
-    //  * 数据字典数据明细
-    //  */
-    // public class BasicDicItems {
-    //    /**
-    //     * 主键
-    //     */
-    //    private String guid;
-    // }
+public class UpdateTemplate implements Template {
     @Override
     public String tableDataToString(Table table, String newClassName) {
         StringBuilder sb = new StringBuilder();
         sb.append(new ImportSimpleTemplateImpl().getTemplate());
         sb.append(LINE);
         sb.append(new ClassNoteTemplateImpl().getTemplate(table, newClassName));
-        sb.append(new ClassTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new ClassUpdateTemplateImpl().getTemplate(table, newClassName));
         List<Column> columns = table.getColumns();
         for (Column column : columns) {
+            if (column.isPrimaryKey()) continue;
             sb.append(LINE);
             sb.append(new FieldNoteTemplateImpl().getTemplate(column));
-            sb.append(new FieldTemplateImpl().getTemplate(column));
+            sb.append(new FieldPublicTemplateImpl().getTemplate(column));
         }
         sb.append(END);
         return sb.toString();
@@ -47,6 +35,6 @@ public class CommonTemplate implements Template{
 
     @Override
     public String endsWith() {
-        return "Do";
+        return "Update";
     }
 }

@@ -14,17 +14,17 @@ import cc.ssnoodles.db.template.imports.ImportControllerTemplateImpl;
 public class ControllerTemplate implements Template {
 
     @Override
-    public String tableDataToString(Table table) {
+    public String tableDataToString(Table table, String newClassName) {
         StringBuilder sb = new StringBuilder();
         sb.append(new ImportControllerTemplateImpl().getTemplate());
         sb.append(LINE);
-        sb.append(new ClassNoteTemplateImpl().getTemplate(table));
-        sb.append(new ClassControllerTemplateImpl().getTemplate(table));
-        sb.append(new PageFunctionTemplateImpl().getTemplate(table));
-        sb.append(new GetFunctionTemplateImpl().getTemplate(table));
-        sb.append(new PostFunctionTemplateImpl().getTemplate(table));
-        sb.append(new PutFunctionTemplateImpl().getTemplate(table));
-        sb.append(new DeleteFunctionTemplateImpl().getTemplate(table));
+        sb.append(new ClassNoteTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new ClassControllerTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new PageFunctionTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new GetFunctionTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new PostFunctionTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new PutFunctionTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new DeleteFunctionTemplateImpl().getTemplate(table, newClassName));
         sb.append(END);
         return sb.toString();
     }

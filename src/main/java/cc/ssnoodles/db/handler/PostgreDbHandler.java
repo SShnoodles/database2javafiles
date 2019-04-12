@@ -16,12 +16,23 @@ import java.util.List;
 public class PostgreDbHandler implements DbHandler {
     @Override
     public void execute(List<Template> templates) throws SQLException {
-        List<Table> tableList = getTables(ConnUtil.getConn(), DbType.POSTGRESQL.getType(), USERNAME);
+        List<Table> tableList = getTables(ConnUtil.getConn(), DbType.POSTGRESQL.getType(), USERNAME, null);
         tableList.forEach(table -> {
             templates.forEach(template -> FileUtil.write2JavaFiles(
-                    OUTPATH + StringUtil.underlineToHumpTopUpperCase(table.getName()) + template.endsWith(),
-                    template.tableDataToString(table),
-                    OVERWRITEFILES));
+                    OUT_PATH + template.startsWith() + StringUtil.underlineToHumpTopUpperCase(table.getName()) + template.endsWith(),
+                    template.tableDataToString(table, null),
+                    OVERWRITE_FILES));
         });
+    }
+
+    @Override
+    public void execute(Template template, String tableName, String className) throws SQLException {
+        List<Table> tableList = getTables(ConnUtil.getConn(), DbType.POSTGRESQL.getType(), USERNAME, tableName);
+        Table table = tableList.get(0);
+        String newTableName = StringUtil.isEmpty(className) ? StringUtil.underlineToHumpTopUpperCase(table.getName()) : className;
+        FileUtil.write2JavaFiles(
+                OUT_PATH + template.startsWith() + newTableName + template.endsWith(),
+                template.tableDataToString(table, newTableName),
+                OVERWRITE_FILES);
     }
 }

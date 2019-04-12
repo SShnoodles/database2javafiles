@@ -13,7 +13,7 @@ import cc.ssnoodles.db.util.*;
 public class ClassNoteTemplateImpl implements ClassTemplate {
 
     @Override
-    public String getTemplate(Table table) {
+    public String getTemplate(Table table, String newClassName) {
         Config config = FileUtil.PROPERTIES;
         StringBuilder sb = new StringBuilder();
         sb.append("/**").append(LINE)

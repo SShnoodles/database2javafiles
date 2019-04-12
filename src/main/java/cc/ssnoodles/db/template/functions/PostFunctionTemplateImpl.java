@@ -11,24 +11,23 @@ import cc.ssnoodles.db.util.StringUtil;
  */
 public class PostFunctionTemplateImpl implements FunctionTemplate {
     @Override
-    public String getTemplate(Table table) {
-        String tableNameUpperCase = StringUtil.underlineToHumpTopUpperCase(table.getName());
-        String tableName = StringUtil.underlineToHump(table.getName());
+    public String getTemplate(Table table, String newClassName) {
+        String tableNameUpperCase = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHumpTopUpperCase(table.getName()) : newClassName;
+        String tableName = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHump(table.getName()) : StringUtil.topLowerCase(newClassName);
 
         StringBuilder sb = new StringBuilder();
         sb.append(SPACE).append("/**").append(LINE)
                 .append(SPACE).append(" * 新增").append(LINE)
-                .append(SPACE).append(" * @param form 新增数据").append(LINE)
+                .append(SPACE).append(" * @param data 新增数据").append(LINE)
                 .append(SPACE).append(" * @return 主键").append(LINE)
                 .append(SPACE).append(" */").append(LINE)
                 .append(SPACE).append("@PostMapping").append(LINE)
                 .append(SPACE).append("@Transactional(rollbackFor = Exception.class)").append(LINE)
-                .append(SPACE).append("public ").append(tableNameUpperCase).append(REF).append(" create(@RequestBody ").append(tableNameUpperCase).append(FORM).append(" form").append(") {").append(LINE)
-                .append(SPACE).append(SPACE).append("String id = UUID.randomUUID().toString();").append(LINE)
-                .append(SPACE).append(SPACE).append(tableNameUpperCase).append(" ").append(tableName).append(" = new ").append(tableNameUpperCase).append("(id);").append(LINE)
-                .append(SPACE).append(SPACE).append("updater.assign(").append(tableName).append(", form").append(");").append(LINE)
+                .append(SPACE).append("public ").append(tableNameUpperCase).append(RECORD).append(" create(@RequestBody ").append(NEW).append(tableNameUpperCase).append(DATA).append(" data").append(") {").append(LINE)
+                .append(SPACE).append(SPACE).append(tableNameUpperCase).append(" ").append(tableName).append(" = new ").append(tableNameUpperCase).append("(UUID.randomUUID().toString());").append(LINE)
+                .append(SPACE).append(SPACE).append("updater.assign(").append(tableName).append(", data").append(");").append(LINE)
                 .append(SPACE).append(SPACE).append(tableName).append(REPOSITORY).append(".save").append("(").append(tableName).append(");").append(LINE)
-                .append(SPACE).append(SPACE).append("return ").append(tableNameUpperCase).append(REF).append(".builder().id(id).build();").append(LINE)
+                .append(SPACE).append(SPACE).append("return dataMapper.of(").append(tableName).append(");").append(LINE)
                 .append(SPACE).append("}").append(LINE).append(LINE);
         return sb.toString();
     }

@@ -13,7 +13,7 @@ public interface ClassTemplate {
 
     String BEGIN = "{";
 
-    String getTemplate(Table table);
+    String getTemplate(Table table, String newClassName);
 
     String SPACE = "    ";
 
@@ -23,10 +23,16 @@ public interface ClassTemplate {
 
     String CRITERIA = "Criteria";
 
-    String FORM = "Form";
+    String DATA = "Data";
 
-    String Dto = "Dto";
+    String UPDATE = "Update";
+
+    String NEW = "New";
+
+    String DTO = "Dto";
 
     String REF = "Ref";
+
+    String RECORD = "Record";
 
 }

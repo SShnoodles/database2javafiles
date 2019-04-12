@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ClassAnnotationTemplateImpl implements ClassTemplate {
     @Override
-    public String getTemplate(Table table) {
+    public String getTemplate(Table table, String className) {
         StringBuilder sb = new StringBuilder();
         sb.append("@Entity").append(LINE)
                 .append("@Table(name = \"").append(table.getName()).append("\")").append(LINE);

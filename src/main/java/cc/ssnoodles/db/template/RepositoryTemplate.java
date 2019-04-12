@@ -12,11 +12,11 @@ import cc.ssnoodles.db.template.imports.ImportRepositoryTemplateImpl;
 public class RepositoryTemplate implements Template{
 
     @Override
-    public String tableDataToString(Table table) {
+    public String tableDataToString(Table table, String newClassName) {
         StringBuilder sb = new StringBuilder();
         sb.append(new ImportRepositoryTemplateImpl().getTemplate());
         sb.append(LINE);
-        sb.append(new ClassRepositoryTemplateImpl().getTemplate(table));
+        sb.append(new ClassRepositoryTemplateImpl().getTemplate(table, newClassName));
         sb.append(" ");
         sb.append(BEGIN);
         sb.append(LINE);

@@ -2,7 +2,7 @@ package cc.ssnoodles.db.template;
 
 import cc.ssnoodles.db.entity.Column;
 import cc.ssnoodles.db.entity.Table;
-import cc.ssnoodles.db.template.classes.ClassFormTemplateImpl;
+import cc.ssnoodles.db.template.classes.ClassDtoTemplateImpl;
 import cc.ssnoodles.db.template.classes.ClassNoteTemplateImpl;
 import cc.ssnoodles.db.template.fields.FieldNoteTemplateImpl;
 import cc.ssnoodles.db.template.fields.FieldPublicTemplateImpl;
@@ -11,21 +11,36 @@ import cc.ssnoodles.db.template.imports.ImportSimpleTemplateImpl;
 import java.util.List;
 
 /**
+ * dto 模板
  * @author ssnoodles
  * @version 1.0
- * Create at 2019-03-13 09:20
+ * Create at 2018/8/27 09:22
  */
-public class FormTemplate implements Template {
+public class RecordTemplate implements Template{
+    // 生成模板样式
+    //
+    // /**
+    //  * 数据字典数据明细
+    //  */
+    // public class BasicDicItems {
+    //    /**
+    //     * 主键
+    //     */
+    //    public String guid;
+    //    /**
+    //     * 编辑人主键
+    //     */
+    //    public String editorGuid;
+    // }
     @Override
-    public String tableDataToString(Table table) {
+    public String tableDataToString(Table table, String newClassName) {
         StringBuilder sb = new StringBuilder();
         sb.append(new ImportSimpleTemplateImpl().getTemplate());
         sb.append(LINE);
-        sb.append(new ClassNoteTemplateImpl().getTemplate(table));
-        sb.append(new ClassFormTemplateImpl().getTemplate(table));
+        sb.append(new ClassNoteTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new ClassRecordTemplateImpl().getTemplate(table, newClassName));
         List<Column> columns = table.getColumns();
         for (Column column : columns) {
-            if (column.isPrimaryKey()) continue;
             sb.append(LINE);
             sb.append(new FieldNoteTemplateImpl().getTemplate(column));
             sb.append(new FieldPublicTemplateImpl().getTemplate(column));
@@ -36,6 +51,6 @@ public class FormTemplate implements Template {
 
     @Override
     public String endsWith() {
-        return "Form";
+        return "Record";
     }
 }

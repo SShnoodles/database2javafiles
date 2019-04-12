@@ -10,11 +10,11 @@ import cc.ssnoodles.db.util.StringUtil;
  */
 public class ClassCriteriaTemplateImpl implements ClassTemplate {
     @Override
-    public String getTemplate(Table table) {
+    public String getTemplate(Table table, String newClassName) {
         StringBuilder sb = new StringBuilder();
         sb.append("@Setter").append(LINE);
         sb.append("public class ")
-                .append(StringUtil.underlineToHumpTopUpperCase(table.getName()))
+                .append(StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHumpTopUpperCase(table.getName()) : newClassName)
                 .append(CRITERIA)
                 .append(" ").append(BEGIN).append(LINE);
         return sb.toString();

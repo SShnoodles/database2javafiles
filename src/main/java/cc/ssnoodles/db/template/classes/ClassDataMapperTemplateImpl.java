@@ -9,7 +9,7 @@ import cc.ssnoodles.db.entity.Table;
  */
 public class ClassDataMapperTemplateImpl implements ClassTemplate {
     @Override
-    public String getTemplate(Table table) {
+    public String getTemplate(Table table, String newClassName) {
         StringBuilder sb = new StringBuilder();
         sb.append("@Mapper(componentModel = \"spring\")").append(LINE);
         sb.append("public interface DataMapper ").append(BEGIN).append(LINE);

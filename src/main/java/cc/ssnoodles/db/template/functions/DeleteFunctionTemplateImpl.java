@@ -11,9 +11,9 @@ import cc.ssnoodles.db.util.StringUtil;
  */
 public class DeleteFunctionTemplateImpl implements FunctionTemplate {
     @Override
-    public String getTemplate(Table table) {
-        String tableNameUpperCase = StringUtil.underlineToHumpTopUpperCase(table.getName());
-        String tableName = StringUtil.underlineToHump(table.getName());
+    public String getTemplate(Table table, String newClassName) {
+        String tableNameUpperCase = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHumpTopUpperCase(table.getName()) : newClassName;
+        String tableName = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHump(table.getName()) : StringUtil.topLowerCase(newClassName);
 
         StringBuilder sb = new StringBuilder();
         sb.append(SPACE).append("/**").append(LINE)

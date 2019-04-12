@@ -21,12 +21,12 @@ public class RefTemplate implements Template {
 //        public String id;
 //    }
     @Override
-    public String tableDataToString(Table table) {
+    public String tableDataToString(Table table, String newClassName) {
         StringBuilder sb = new StringBuilder();
         sb.append(new ImportSimpleTemplateImpl().getTemplate());
         sb.append(LINE);
-        sb.append(new ClassNoteTemplateImpl().getTemplate(table));
-        sb.append(new ClassRefTemplateImpl().getTemplate(table));
+        sb.append(new ClassNoteTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new ClassRefTemplateImpl().getTemplate(table, newClassName));
         sb.append("    public String id;").append(LINE);
         sb.append(END);
         return sb.toString();

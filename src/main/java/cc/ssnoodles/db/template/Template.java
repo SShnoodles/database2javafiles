@@ -14,7 +14,11 @@ public interface Template {
 
     String END = "}";
 
-    String tableDataToString(Table table);
+    String tableDataToString(Table table, String newClassName);
+
+    default String startsWith() {
+        return "";
+    }
 
     default String endsWith() {
         return "";

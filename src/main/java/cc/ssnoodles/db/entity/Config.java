@@ -29,4 +29,8 @@ public class Config {
     private String author;
 
     private boolean overwritefiles;
+
+    private String singleTableName;
+
+    private String singleTableRename;
 }

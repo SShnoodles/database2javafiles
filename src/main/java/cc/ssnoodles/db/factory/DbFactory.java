@@ -1,6 +1,7 @@
 package cc.ssnoodles.db.factory;
 
 import cc.ssnoodles.db.template.Template;
+import cc.ssnoodles.db.util.FileUtil;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -14,6 +15,8 @@ public interface DbFactory {
     void create(String dbType, List<Template> templates) throws SQLException;
 
     void create(String dbType, Template template) throws SQLException;
+
+    void create(String dbType, Template template, String singleTableName, String singleTableRename) throws SQLException;
 
     List<Template> getTemplates(String[] templateType);
 

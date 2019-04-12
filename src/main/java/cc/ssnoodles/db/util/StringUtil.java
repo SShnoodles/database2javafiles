@@ -40,4 +40,19 @@ public class StringUtil {
     public static boolean isEmpty(String str) {
         return (str == null || "".equals(str));
     }
+
+    public static String topLowerCase(String str) {
+        return str.substring(0, 1).toLowerCase() + str.substring(1);
+    }
+
+    public static String toUrl(String str) {
+        StringBuilder result = new StringBuilder();
+        String[] strs = str.split("(?<=[a-z])(?=[A-Z])");
+        for (String s : strs) {
+            result.append(s.toLowerCase());
+            result.append("/");
+        }
+        String s = result.toString();
+        return s.substring(0, s.length() - 1);
+    }
 }

@@ -30,12 +30,12 @@ public class DtoTemplate implements Template{
     //    public String editorGuid;
     // }
     @Override
-    public String tableDataToString(Table table) {
+    public String tableDataToString(Table table, String newClassName) {
         StringBuilder sb = new StringBuilder();
         sb.append(new ImportSimpleTemplateImpl().getTemplate());
         sb.append(LINE);
-        sb.append(new ClassNoteTemplateImpl().getTemplate(table));
-        sb.append(new ClassDtoTemplateImpl().getTemplate(table));
+        sb.append(new ClassNoteTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new ClassDtoTemplateImpl().getTemplate(table, newClassName));
         List<Column> columns = table.getColumns();
         for (Column column : columns) {
             sb.append(LINE);

@@ -17,17 +17,20 @@ import java.util.*;
  */
 public interface DbHandler {
 
-    String OUTPATH = FileUtil.PROPERTIES.getOutpath();
+    String OUT_PATH = FileUtil.PROPERTIES.getOutpath();
     String USERNAME = FileUtil.PROPERTIES.getUsername();
-    boolean OVERWRITEFILES = FileUtil.PROPERTIES.isOverwritefiles();
+    boolean OVERWRITE_FILES = FileUtil.PROPERTIES.isOverwritefiles();
+
     String LINE = System.getProperty("line.separator");
 
     void execute(List<Template> templates) throws SQLException;
 
-    default List<Table> getTables(Connection conn, String dbType, String userName) throws SQLException {
+    void execute(Template template, String tableName, String className) throws SQLException;
+
+    default List<Table> getTables(Connection conn, String dbType, String userName, String tableNamePattern) throws SQLException {
         DatabaseMetaData dbMetData = conn.getMetaData();
         ResultSet rs = dbMetData.getTables(null, DbCharsetTypeUtil.convertDatabaseCharsetType(userName, dbType),
-                null, new String[]{"TABLE"});
+                tableNamePattern, new String[]{"TABLE"});
         List<Table> tableList = new ArrayList<>();
         while (rs.next()) {
             String tableName = rs.getString("TABLE_NAME");
@@ -55,16 +58,9 @@ public interface DbHandler {
                 columns.add(column);
             }
 
-            Set<String> set = new HashSet<>();
-            List<Column> newColumns = new ArrayList<>();
-            for (Column column : columns) {
-                if(set.add(column.getName())){
-                    newColumns.add(column);
-                }
-            }
             table.setName(tableName);
             table.setRemarks(tableRemarks);
-            table.setColumns(newColumns);
+            table.setColumns(columns);
 
             ResultSet primaryKeysRet;
             if (DbType.ORACLE.getType().equals(dbType)) {

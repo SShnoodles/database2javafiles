@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 public class ClassRepositoryTemplateImpl implements ClassTemplate{
 
     @Override
-    public String getTemplate(Table table) {
-        String tableName = StringUtil.underlineToHumpTopUpperCase(table.getName());
+    public String getTemplate(Table table, String newClassName) {
+        String tableName = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHumpTopUpperCase(table.getName()) : newClassName;
         StringBuilder sb = new StringBuilder();
         sb.append("public interface ")
                 .append(tableName).append("Repository")

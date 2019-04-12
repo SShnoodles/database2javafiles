@@ -17,12 +17,12 @@ import java.util.List;
  */
 public class CriteriaTemplate implements Template {
     @Override
-    public String tableDataToString(Table table) {
+    public String tableDataToString(Table table, String newClassName) {
         StringBuilder sb = new StringBuilder();
         sb.append(new ImportSimpleTemplateImpl().getTemplate());
         sb.append(LINE);
-        sb.append(new ClassNoteTemplateImpl().getTemplate(table));
-        sb.append(new ClassCriteriaTemplateImpl().getTemplate(table));
+        sb.append(new ClassNoteTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new ClassCriteriaTemplateImpl().getTemplate(table, newClassName));
         List<Column> columns = table.getColumns();
         for (Column column : columns) {
             if (column.isPrimaryKey()) continue;

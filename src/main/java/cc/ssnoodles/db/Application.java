@@ -3,7 +3,7 @@ package cc.ssnoodles.db;
 import cc.ssnoodles.db.entity.Config;
 import cc.ssnoodles.db.factory.DbFactory;
 import cc.ssnoodles.db.factory.DbFactoryImpl;
-import cc.ssnoodles.db.template.Template;
+import cc.ssnoodles.db.template.*;
 import cc.ssnoodles.db.util.FileUtil;
 
 import java.util.List;
@@ -30,9 +30,14 @@ public class Application {
         final Config config = FileUtil.PROPERTIES;
         // create factory
         DbFactory dbFactory = new DbFactoryImpl();
-        // generate template
+        // generate templates
         List<Template> templates = dbFactory.getTemplates(config.getTemplates());
-        dbFactory.create(config.getDb(), templates);
+
+        // generate jpa templates
+//        dbFactory.create(config.getDb(), new JpaTemplate());
+
+        // generate template from the specified table
+//        dbFactory.create(config.getDb(), new JpaTemplate(), config.getSingleTableName(), config.getSingleTableRename());
     }
 
 }

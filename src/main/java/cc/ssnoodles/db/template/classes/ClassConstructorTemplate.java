@@ -16,10 +16,9 @@ import java.util.stream.Collectors;
  */
 public class ClassConstructorTemplate implements ClassTemplate {
     @Override
-    public String getTemplate(Table table) {
-        final Config config = FileUtil.PROPERTIES;
+    public String getTemplate(Table table, String className) {
         StringBuilder sb = new StringBuilder();
-        String tableName = StringUtil.underlineToHumpTopUpperCase(table.getName());
+        String tableName = StringUtil.isEmpty(className) ? StringUtil.underlineToHumpTopUpperCase(table.getName()) : className;
 
         sb.append(LINE);
         List<Column> primaryKeyColumns = table.getColumns().stream().filter(Column::isPrimaryKey).collect(Collectors.toList());

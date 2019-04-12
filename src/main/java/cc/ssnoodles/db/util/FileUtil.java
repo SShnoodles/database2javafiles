@@ -43,6 +43,8 @@ public class FileUtil {
                     .templates(properties.getProperty("templates").split(","))
                     .author(properties.getProperty("author"))
                     .overwritefiles(Boolean.valueOf(properties.getProperty("overwritefiles")))
+                    .singleTableName(properties.getProperty("single.table.name"))
+                    .singleTableRename(properties.getProperty("single.table.rename"))
                     .build();
         } catch (Exception e) {
             throw new RuntimeException("Load configuration file failed");

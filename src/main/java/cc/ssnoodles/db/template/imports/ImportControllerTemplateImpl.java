@@ -11,6 +11,7 @@ public class ImportControllerTemplateImpl implements ImportTemplate {
         StringBuilder sb = new StringBuilder();
         sb.append("import org.springframework.beans.factory.annotation.Autowired;").append(LINE)
                 .append("import org.springframework.web.bind.annotation.*;").append(LINE)
+                .append("import org.springframework.data.domain.Pageable;").append(LINE)
                 .append("import java.util.Optional;").append(LINE);
         return sb.toString();
     }

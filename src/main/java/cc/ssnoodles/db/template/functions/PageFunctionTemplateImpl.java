@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class PageFunctionTemplateImpl implements FunctionTemplate {
     @Override
-    public String getTemplate(Table table) {
-        String tableNameUpperCase = StringUtil.underlineToHumpTopUpperCase(table.getName());
-        String tableName = StringUtil.underlineToHump(table.getName());
+    public String getTemplate(Table table, String newClassName) {
+        String tableNameUpperCase = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHumpTopUpperCase(table.getName()) : newClassName;
+        String tableName = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHump(table.getName()) : StringUtil.topLowerCase(newClassName);
 
         StringBuilder sb = new StringBuilder();
         sb.append(SPACE).append("/**").append(LINE)
@@ -27,7 +27,7 @@ public class PageFunctionTemplateImpl implements FunctionTemplate {
                 .append(SPACE).append(" * @return 列表数据").append(LINE)
                 .append(SPACE).append(" */").append(LINE)
                 .append(SPACE).append("@GetMapping").append(LINE)
-                .append(SPACE).append("public Page<").append(tableNameUpperCase).append(Dto).append("> get(@SortDefault(direction = Sort.Direction.DESC) Pageable pageable, ").append(tableNameUpperCase).append(CRITERIA).append(" criteria) {").append(LINE)
+                .append(SPACE).append("public Page<").append(tableNameUpperCase).append(RECORD).append("> get(@SortDefault(direction = Sort.Direction.DESC) Pageable pageable, ").append(tableNameUpperCase).append(CRITERIA).append(" criteria) {").append(LINE)
                 .append(SPACE).append(SPACE).append("Q").append(tableNameUpperCase).append(" ").append(tableName).append(" = ").append("Q").append(tableNameUpperCase).append(".").append(tableName).append(";").append(LINE)
                 .append(SPACE).append(SPACE).append("Predicate predicate = PredicateUtils.buildPredicate(builder -> builder").append(LINE);
         List<Column> columns = table.getColumns();
