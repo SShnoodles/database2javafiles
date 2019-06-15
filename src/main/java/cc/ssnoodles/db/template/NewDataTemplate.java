@@ -35,12 +35,7 @@ public class NewDataTemplate implements Template {
     }
 
     @Override
-    public String startsWith() {
-        return "New";
-    }
-
-    @Override
     public String endsWith() {
-        return "Data";
+        return "New";
     }
 }

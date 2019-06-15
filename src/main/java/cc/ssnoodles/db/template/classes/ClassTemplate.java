@@ -35,4 +35,6 @@ public interface ClassTemplate {
 
     String RECORD = "Record";
 
+    String DO = "Do";
+
 }

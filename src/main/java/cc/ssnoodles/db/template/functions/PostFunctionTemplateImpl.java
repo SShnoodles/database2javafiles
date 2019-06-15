@@ -23,7 +23,7 @@ public class PostFunctionTemplateImpl implements FunctionTemplate {
                 .append(SPACE).append(" */").append(LINE)
                 .append(SPACE).append("@PostMapping").append(LINE)
                 .append(SPACE).append("@Transactional(rollbackFor = Exception.class)").append(LINE)
-                .append(SPACE).append("public ").append(tableNameUpperCase).append(RECORD).append(" create(@RequestBody ").append(NEW).append(tableNameUpperCase).append(DATA).append(" data").append(") {").append(LINE)
+                .append(SPACE).append("public ").append(tableNameUpperCase).append(RECORD).append(" create(@RequestBody ").append(tableNameUpperCase).append(NEW).append(" data").append(") {").append(LINE)
                 .append(SPACE).append(SPACE).append(tableNameUpperCase).append(" ").append(tableName).append(" = new ").append(tableNameUpperCase).append("(UUID.randomUUID().toString());").append(LINE)
                 .append(SPACE).append(SPACE).append("updater.assign(").append(tableName).append(", data").append(");").append(LINE)
                 .append(SPACE).append(SPACE).append(tableName).append(REPOSITORY).append(".save").append("(").append(tableName).append(");").append(LINE)

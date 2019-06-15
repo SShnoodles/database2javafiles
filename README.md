@@ -25,10 +25,13 @@ password=123456
 outpath=./tmp/
 templates=jpa,repository
 author=ssnoodles
+overwritefiles=false
+single.table.name=
+single.table.rename=
 ```
 
 # Templates
-Jpa、Dto、Common、Repository、Controller
+Jpa、Dto、Do、Repository、Controller
 
 # Quick start
 ```java
@@ -40,3 +43,5 @@ DbFactory dbFactory = new DbFactoryImpl();
 dbFactory.create(config.getDb(), new JpaTemplate());
 ```
 
+# other
+[PredicateUtils](code.md)

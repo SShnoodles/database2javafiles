@@ -67,7 +67,7 @@ public class DbFactoryImpl implements DbFactory {
                 templates.add(new ControllerTemplate());
             }
             else {
-                templates.add(new CommonTemplate());
+                templates.add(new DoTemplate());
             }
         }
         return templates;
@@ -82,7 +82,7 @@ public class DbFactoryImpl implements DbFactory {
             return new DtoTemplate();
         }
         else {
-            return new CommonTemplate();
+            return new DoTemplate();
         }
     }
 }
