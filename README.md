@@ -43,5 +43,5 @@ DbFactory dbFactory = new DbFactoryImpl();
 dbFactory.create(config.getDb(), new JpaTemplate());
 ```
 
-# other
+# Util class
 [PredicateUtils](code.md)

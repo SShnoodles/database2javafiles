@@ -12,11 +12,7 @@ import lombok.*;
 public class Config {
     private String db;
 
-    private String host;
-
-    private String port;
-
-    private String servername;
+    private String url;
 
     private String username;
 

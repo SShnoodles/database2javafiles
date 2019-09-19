@@ -1,5 +1,6 @@
 package cc.ssnoodles.db.util;
 
+import cc.ssnoodles.db.constant.DbType;
 import cc.ssnoodles.db.entity.Config;
 
 import java.io.*;
@@ -32,11 +33,10 @@ public class FileUtil {
             }
         }
         try {
+            String url = properties.getProperty("url");
             return Config.builder()
-                    .db(properties.getProperty("db"))
-                    .host(properties.getProperty("host"))
-                    .port(properties.getProperty("port"))
-                    .servername(properties.getProperty("servername"))
+                    .db(getDb(url))
+                    .url(url)
                     .username(properties.getProperty("username"))
                     .password(properties.getProperty("password"))
                     .outpath(properties.getProperty("outpath"))
@@ -48,6 +48,21 @@ public class FileUtil {
                     .build();
         } catch (Exception e) {
             throw new RuntimeException("Load configuration file failed");
+        }
+    }
+
+    private static String getDb(String url) {
+        if (StringUtil.isEmpty(url)) {
+            throw new RuntimeException("Load configuration file url property failed");
+        }
+        if (url.contains(DbType.ORACLE.getType())) {
+            return DbType.ORACLE.getType();
+        } else if (url.contains(DbType.POSTGRESQL.getType())) {
+            return DbType.POSTGRESQL.getType();
+        } else if (url.contains(DbType.MYSQL.getType())) {
+            return DbType.MYSQL.getType();
+        } else {
+            throw new RuntimeException("No database was found to be supported");
         }
     }
 
