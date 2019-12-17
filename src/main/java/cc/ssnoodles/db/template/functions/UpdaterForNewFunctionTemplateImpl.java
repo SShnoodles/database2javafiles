@@ -16,7 +16,7 @@ public class UpdaterForNewFunctionTemplateImpl implements FunctionTemplate {
         StringBuilder sb = new StringBuilder();
         sb.append(SPACE).append("void assign(@MappingTarget ")
                 .append(tableNameUpperCase).append(" ").append(tableName).append(", ")
-                .append(NEW).append(tableNameUpperCase).append(DATA).append(" ").append("data").append(");")
+                .append(tableNameUpperCase).append(NEW).append(" ").append("data").append(");")
                 .append(LINE);
         return sb.toString();
     }
