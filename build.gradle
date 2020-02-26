@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'cc.ssnoodles.db'
-version '2.7'
+version '2.8'
 
 sourceCompatibility = 1.8
 

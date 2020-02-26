@@ -6,39 +6,64 @@ package cc.ssnoodles.db.constant;
  * Create at 2018/7/12 23:00
  */
 public enum ColumnType {
-    CHAR("String"),
-    VARCHAR("String"),
-    VARCHAR2("String"),
-    NVARCHAR2("String"),
-    DATE("OffsetDateTime"),
-    DATETIME("OffsetDateTime"),
-    NUMBER("BigDecimal"),
+    UUID("UUID", "UUID"),
 
-    INTEGER("Integer"),
-    UUID("UUID"),
-    BPCHAR("String"),
-    CHARACTER("String"),
-    TEXT("String"),
-    INT2("Integer"),
-    INT4("Integer"),
-    INT8("Long"),
-    TIMESTAMP("OffsetDateTime"),
-    BOOL("Boolean"),
-    BOOLEAN("Boolean"),
-    NUMERIC("BigDecimal"),
+    LONGTEXT("LONGTEXT", "String"),
+    CHAR("CHAR", "String"),
+    VARCHAR("VARCHAR", "String"),
+    VARCHAR2("VARCHAR2","String"),
+    NCHAR("NCHAR", "String"),
+    NVARCHAR2("NVARCHAR2", "String"),
+    CLOB("CLOB", "String"),
+    NCLOB("NCLOB", "String"),
+    BLOB("BLOB", "String"),
+    BPCHAR("BPCHAR", "String"),
+    CHARACTER("CHARACTER", "String"),
+    TEXT("TEXT", "String"),
+    LONGVARCHAR("LONGVARCHAR", "String"),
 
-    LONGTEXT("String"),
-    DECIMAL("BigDecimal"),
-    BIGINT("Long"),
-    DOUBLE("BigDecimal"),
-    INT("Integer"),
-    BIT("Integer"),
-    TINYINT("Integer");
+    INTEGER("INTEGER", "Integer"),
+    INT2("INT2", "Integer"),
+    INT4("INT4", "Integer"),
+    INT("INT", "Integer"),
+    TINYINT("TINYINT", "Integer"),
+    SMALLINT("SMALLINT", "Integer"),
+    BIGINT("BIGINT", "Long"),
+    INT8("INT8", "Long"),
+
+    NUMERIC("NUMERIC", "BigDecimal"),
+    NUMBER("NUMBER", "BigDecimal"),
+    DECIMAL("DECIMAL", "BigDecimal"),
+    DOUBLE("DOUBLE", "BigDecimal"),
+    FLOAT("FLOAT", "BigDecimal"),
+    REAL("REAL", "BigDecimal"),
+
+    BINARY("BINARY", "Byte[]"),
+    VARBINARY("VARBINARY", "Byte[]"),
+    LONGVARBINARY("LONGVARBINARY", "Byte[]"),
+
+    BOOL("BOOL", "Boolean"),
+    BOOLEAN("BOOLEAN", "Boolean"),
+    BIT("BIT", "Boolean"),
+
+    DATE("DATE", "OffsetDateTime"),
+    DATETIME("DATETIME", "OffsetDateTime"),
+    TIMESTAMP("TIMESTAMP", "OffsetDateTime"),
+    TIMESTAMPTZ("TIMESTAMPTZ", "OffsetDateTime"),
+    TIMESTAMPLTZ("TIMESTAMPLTZ", "OffsetDateTime"),
+    TIMESTAMP6("TIMESTAMP(6)", "OffsetDateTime");
+
+    private String columnType;
 
     private String javaType;
 
-    ColumnType(String javaType) {
+    ColumnType(String columnType, String javaType) {
+        this.columnType = columnType;
         this.javaType = javaType;
+    }
+
+    public String getColumnType() {
+        return columnType;
     }
 
     public String getJavaType() {
@@ -48,7 +73,7 @@ public enum ColumnType {
     public static String get(String type) {
         ColumnType[] values = values();
         for (ColumnType value : values) {
-            if (value.name().equalsIgnoreCase(type)) {
+            if (value.columnType.equalsIgnoreCase(type)) {
                 return value.getJavaType();
             }
         }

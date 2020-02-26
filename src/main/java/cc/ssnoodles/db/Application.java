@@ -32,7 +32,7 @@ public class Application {
         DbFactory dbFactory = new DbFactoryImpl();
         // generate templates
         List<Template> templates = dbFactory.getTemplates(config.getTemplates());
-
+        dbFactory.create(config.getDb(), templates);
         // generate jpa templates
 //        dbFactory.create(config.getDb(), new JpaTemplate());
 
