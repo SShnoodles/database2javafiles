@@ -25,15 +25,14 @@ public class JpaTemplate implements Template {
     // @Table(name = "BASIC_DIC_ITEMS")
     // @EqualsAndHashCode(of = "guid")
     // @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    // @RequiredArgsConstructor
     // public class BasicDicItems {
-    //     public BasicDicItems(String guid) {
-    //         this.guid = guid;
-    //     }
     //    /**
     //     * 主键
     //      */
     //     @Id
     //     @Setter(AccessLevel.PROTECTED)
+    //     @NonNull
     //     @Column(name = "GUID")
     //     private String guid;
     //     /**
@@ -50,7 +49,6 @@ public class JpaTemplate implements Template {
         sb.append(new ClassNoteTemplateImpl().getTemplate(table, newClassName));
         sb.append(new ClassAnnotationTemplateImpl().getTemplate(table, newClassName));
         sb.append(new ClassTemplateImpl().getTemplate(table, newClassName));
-        sb.append(new ClassConstructorTemplate().getTemplate(table, newClassName));
         List<Column> columns = table.getColumns();
         for (Column column : columns) {
             sb.append(LINE);

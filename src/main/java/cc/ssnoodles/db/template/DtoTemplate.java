@@ -35,11 +35,13 @@ public class DtoTemplate implements Template{
         sb.append(new ImportSimpleTemplateImpl().getTemplate());
         sb.append(LINE);
         sb.append(new ClassNoteTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new ClassDtoAnnotationTemplateImpl().getTemplate(table, newClassName));
         sb.append(new ClassDtoTemplateImpl().getTemplate(table, newClassName));
         List<Column> columns = table.getColumns();
         for (Column column : columns) {
             sb.append(LINE);
             sb.append(new FieldNoteTemplateImpl().getTemplate(column));
+            sb.append(new FieldDtoAnnotationTemplateImpl().getTemplate(column));
             sb.append(new FieldPublicTemplateImpl().getTemplate(column));
         }
         sb.append(END);

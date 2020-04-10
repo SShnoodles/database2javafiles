@@ -1,14 +1,13 @@
 plugins {
     id 'java'
+    id 'maven-publish'
     id 'com.github.johnrengelman.shadow' version '4.0.4'
 }
 
 group 'cc.ssnoodles.db'
-version '2.8'
+version '2.9'
 
 sourceCompatibility = 1.8
-
-apply plugin: 'maven-publish'
 
 repositories {
     maven {
@@ -20,10 +19,10 @@ repositories {
 
 dependencies {
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
-    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
-    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.5'
-    compile group: 'com.oracle', name: 'ojdbc6', version: '11.2.0.3'
-    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.14'
+    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+    compileOnly group: 'org.postgresql', name: 'postgresql', version: '42.2.5'
+    compileOnly group: 'com.oracle', name: 'ojdbc6', version: '11.2.0.3'
+    compileOnly group: 'mysql', name: 'mysql-connector-java', version: '8.0.14'
 }
 
 jar {

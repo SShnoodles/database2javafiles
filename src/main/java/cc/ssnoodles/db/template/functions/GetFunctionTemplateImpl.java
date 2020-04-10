@@ -22,6 +22,7 @@ public class GetFunctionTemplateImpl implements FunctionTemplate {
                 .append(SPACE).append(" * @return 单条数据").append(LINE)
                 .append(SPACE).append(" */").append(LINE)
                 .append(SPACE).append("@GetMapping(\"{id}\")").append(LINE)
+                .append(SPACE).append("@Operation(summary = \"查询单条\")").append(LINE)
                 .append(SPACE).append("public ").append(tableNameUpperCase).append(RECORD).append(" get(@PathVariable String id) {").append(LINE)
                 .append(SPACE).append(SPACE).append("return ").append(tableName).append(REPOSITORY).append(".findById(id).map(dataMapper::of).orElseThrow(NotFoundException::new);").append(LINE)
                 .append(SPACE).append("}").append(LINE).append(LINE);

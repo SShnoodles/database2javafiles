@@ -49,12 +49,16 @@ public interface DbHandler {
                 String columnName = colRet.getString("COLUMN_NAME");
                 String columnType = colRet.getString("TYPE_NAME");
                 String columnRemarks = colRet.getString("REMARKS");
+                int columnSize = colRet.getInt("COLUMN_SIZE");
+                int nullable = colRet.getInt("NULLABLE");
                 int decimalDigits = colRet.getInt("DECIMAL_DIGITS");
                 Column column = new Column();
                 column.setName(columnName);
                 column.setType(columnType);
                 column.setRemarks(columnRemarks);
                 column.setDecimalDigits(decimalDigits > 0);
+                column.setSize(columnSize);
+                column.setNullable(nullable == 1);
                 columns.add(column);
             }
 

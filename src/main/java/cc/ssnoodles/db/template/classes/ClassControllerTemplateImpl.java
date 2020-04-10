@@ -20,16 +20,21 @@ public class ClassControllerTemplateImpl implements ClassTemplate {
         // 依赖
         sb.append("@RestController").append(LINE)
                 .append("@RequestMapping(\"").append(tableUrl).append("\")").append(LINE)
+                .append("@Tag(name = \"").append(table.getRemarks()).append("\")").append(LINE)
                 .append("public class ").append(tableNameUpperCase).append(CONTROLLER).append(" {").append(LINE)
                 .append(LINE)
-                .append(SPACE).append("@Autowired").append(LINE)
-                .append(SPACE).append(tableNameUpperCase).append(REPOSITORY).append(" ").append(tableName).append(REPOSITORY).append(";").append(LINE)
+                .append(SPACE).append("private final ").append(tableNameUpperCase).append(REPOSITORY).append(" ").append(tableName).append(REPOSITORY).append(";").append(LINE)
                 .append(LINE)
-                .append(SPACE).append("@Autowired").append(LINE)
-                .append(SPACE).append("Updater updater;").append(LINE)
+                .append(SPACE).append("private final Updater updater;").append(LINE)
                 .append(LINE)
-                .append(SPACE).append("@Autowired").append(LINE)
-                .append(SPACE).append("DataMapper dataMapper;").append(LINE)
+                .append(SPACE).append("private final DataMapper dataMapper;").append(LINE)
+                .append(LINE)
+                .append(SPACE).append("public ").append(tableNameUpperCase).append(CONTROLLER).append("(")
+                .append(tableNameUpperCase).append(REPOSITORY).append(" ").append(tableName).append(REPOSITORY).append(", ").append("Updater updater").append(", ").append("DataMapper dataMapper").append(") {").append(LINE)
+                .append(SPACE).append(SPACE).append("this.").append(tableName).append(REPOSITORY).append(" = ").append(tableName).append(REPOSITORY).append(";").append(LINE)
+                .append(SPACE).append(SPACE).append("this.updater = updater;").append(LINE)
+                .append(SPACE).append(SPACE).append("this.dataMapper = dataMapper;").append(LINE)
+                .append(SPACE).append("}")
                 .append(LINE);
         return sb.toString();
     }

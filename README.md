@@ -1,9 +1,12 @@
-# database2javafiles
+# Database2javafiles
 Generating java files from database tables.
 
 download [jar.zip](https://github.com/SShnoodles/database2javafiles/releases)
 
 **New plugin!!!** [Idea Plugin](https://github.com/SShnoodles/db2j-idea-plugin)
+
+# TODO
+- [ ] velocity
 
 # Support database
 - oracle
@@ -45,3 +48,4 @@ dbFactory.create(config.getDb(), new JpaTemplate());
 
 # Util class
 [PredicateUtils](code.md)
+[Predicates](code2.md)

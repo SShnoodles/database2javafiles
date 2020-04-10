@@ -15,8 +15,15 @@ public class FieldAnnotationTemplateImpl implements FieldTemplate {
         if (column.isPrimaryKey()) {
             sb.append("    @Id").append(LINE);
             sb.append("    @Setter(AccessLevel.PROTECTED)").append(LINE);
+            sb.append("    @NonNull").append(LINE);
         }
-        sb.append("    @Column(name = \"").append(column.getName()).append("\")").append(LINE);
+        sb.append("    @Column(name = \"").append(column.getName());
+        if (column.isNullable()) {
+            sb.append("\")");
+        } else {
+            sb.append("\", nullable = false)");
+        }
+        sb.append(LINE);
         return sb.toString();
     }
 }

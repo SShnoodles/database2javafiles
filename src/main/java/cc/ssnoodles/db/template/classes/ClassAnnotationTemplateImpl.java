@@ -37,6 +37,7 @@ public class ClassAnnotationTemplateImpl implements ClassTemplate {
             sb.append("@EqualsAndHashCode(of = ").append(primaryKeysString).append(")").append(LINE);
         }
         sb.append("@NoArgsConstructor(access = AccessLevel.PROTECTED)").append(LINE);
+        sb.append("@RequiredArgsConstructor").append(LINE);
         return sb.toString();
     }
 }
