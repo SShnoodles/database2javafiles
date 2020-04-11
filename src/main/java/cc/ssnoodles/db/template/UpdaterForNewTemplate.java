@@ -24,6 +24,6 @@ public class UpdaterForNewTemplate implements Template {
 
     @Override
     public String endsWith() {
-        return "Updater";
+        return "EntityMapper";
     }
 }

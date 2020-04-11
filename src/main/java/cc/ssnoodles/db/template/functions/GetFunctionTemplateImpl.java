@@ -23,7 +23,13 @@ public class GetFunctionTemplateImpl implements FunctionTemplate {
                 .append(SPACE).append(" */").append(LINE)
                 .append(SPACE).append("@GetMapping(\"{id}\")").append(LINE)
                 .append(SPACE).append("@Operation(summary = \"查询单条\")").append(LINE)
-                .append(SPACE).append("public ").append(tableNameUpperCase).append(RECORD).append(" get(@PathVariable String id) {").append(LINE)
+                .append(SPACE).append("public ").append(tableNameUpperCase).append(RECORD);
+        if (table.getColumns().stream().anyMatch(column -> column.isPrimaryKey() && column.getType().equalsIgnoreCase("UUID"))) {
+            sb.append(" get(@PathVariable UUID id) {");
+        } else {
+            sb.append(" get(@PathVariable String id) {");
+        }
+        sb.append(LINE)
                 .append(SPACE).append(SPACE).append("return ").append(tableName).append(REPOSITORY).append(".findById(id).map(dataMapper::of).orElseThrow(NotFoundException::new);").append(LINE)
                 .append(SPACE).append("}").append(LINE).append(LINE);
         return sb.toString();

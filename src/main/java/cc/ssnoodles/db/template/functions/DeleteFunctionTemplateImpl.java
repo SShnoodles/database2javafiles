@@ -23,7 +23,13 @@ public class DeleteFunctionTemplateImpl implements FunctionTemplate {
                 .append(SPACE).append("@DeleteMapping(\"{id}\")").append(LINE)
                 .append(SPACE).append("@Transactional").append(LINE)
                 .append(SPACE).append("@Operation(summary = \"删除\")").append(LINE)
-                .append(SPACE).append("public void delete(@PathVariable String id) {").append(LINE)
+                .append(SPACE);
+        if (table.getColumns().stream().anyMatch(column -> column.isPrimaryKey() && column.getType().equalsIgnoreCase("UUID"))) {
+            sb.append("public void delete(@PathVariable UUID id) {");
+        } else {
+            sb.append("public void delete(@PathVariable String id) {");
+        }
+        sb.append(LINE)
                 .append(SPACE).append(SPACE).append(tableNameUpperCase).append(" ").append(tableName).append(" = ").append(tableName).append(REPOSITORY).append(".findById(id).orElseThrow(NotFoundException::new);").append(LINE)
                 .append(SPACE).append(SPACE).append(tableName).append(REPOSITORY).append(".delete(").append(tableName).append(");").append(LINE)
                 .append(SPACE).append("}").append(LINE).append(LINE);

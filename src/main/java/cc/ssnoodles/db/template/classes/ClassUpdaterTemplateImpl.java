@@ -12,7 +12,7 @@ public class ClassUpdaterTemplateImpl implements ClassTemplate {
     public String getTemplate(Table table, String newClassName) {
         StringBuilder sb = new StringBuilder();
         sb.append("@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = \"spring\")").append(LINE);
-        sb.append("public interface Updater ").append(BEGIN).append(LINE);
+        sb.append("public interface EntityMapper ").append(BEGIN).append(LINE);
         return sb.toString();
     }
 }

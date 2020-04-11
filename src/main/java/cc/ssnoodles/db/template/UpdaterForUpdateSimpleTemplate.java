@@ -1,7 +1,6 @@
 package cc.ssnoodles.db.template;
 
 import cc.ssnoodles.db.entity.Table;
-import cc.ssnoodles.db.template.functions.UpdaterForNewFunctionTemplateImpl;
 import cc.ssnoodles.db.template.functions.UpdaterForUpdateFunctionTemplateImpl;
 
 /**
@@ -17,6 +16,6 @@ public class UpdaterForUpdateSimpleTemplate implements Template  {
 
     @Override
     public String endsWith() {
-        return "Updater";
+        return "EntityMapper";
     }
 }

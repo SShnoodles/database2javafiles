@@ -52,10 +52,10 @@ public class PageFunctionTemplateImpl implements FunctionTemplate {
         } else if ("LocalDate".equals(ColumnType.get(column.getType()))
                 || "LocalDateTime".equals(ColumnType.get(column.getType()))
                 || "OffsetDateTime".equals(ColumnType.get(column.getType()))) {
-            sb.append(SPACE).append(SPACE).append(SPACE).append(SPACE).append("b.add(u.").append(columnName).append("::goe").append(", ").append(columnName).append("From").append(", LocalTime.MIN);").append(LINE);
-            sb.append(SPACE).append(SPACE).append(SPACE).append(SPACE).append("b.add(u.").append(columnName).append("::loe").append(", ").append(columnName).append("To").append(", LocalTime.MAX);").append(LINE);
+            sb.append(SPACE).append(SPACE).append(SPACE).append(SPACE).append("b.add(u.").append(columnName).append("::goe").append(", criteria.").append(columnName).append("From").append(", LocalTime.MIN);").append(LINE);
+            sb.append(SPACE).append(SPACE).append(SPACE).append(SPACE).append("b.add(u.").append(columnName).append("::loe").append(", criteria.").append(columnName).append("To").append(", LocalTime.MAX);").append(LINE);
         } else {
-            sb.append(SPACE).append(SPACE).append(SPACE).append(SPACE).append("b.add(u.").append(columnName).append(", ").append("'%' + ").append(columnName).append(" + '%');").append(LINE);
+            sb.append(SPACE).append(SPACE).append(SPACE).append(SPACE).append("b.add(u.").append(columnName).append(", ").append("'%' + criteria.").append(columnName).append(" + '%');").append(LINE);
         }
         return sb.toString();
     }
