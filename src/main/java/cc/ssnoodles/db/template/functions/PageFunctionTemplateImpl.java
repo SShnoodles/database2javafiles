@@ -55,7 +55,7 @@ public class PageFunctionTemplateImpl implements FunctionTemplate {
             sb.append(SPACE).append(SPACE).append(SPACE).append(SPACE).append("b.add(u.").append(columnName).append("::goe").append(", criteria.").append(columnName).append("From").append(", LocalTime.MIN);").append(LINE);
             sb.append(SPACE).append(SPACE).append(SPACE).append(SPACE).append("b.add(u.").append(columnName).append("::loe").append(", criteria.").append(columnName).append("To").append(", LocalTime.MAX);").append(LINE);
         } else {
-            sb.append(SPACE).append(SPACE).append(SPACE).append(SPACE).append("b.add(u.").append(columnName).append(", ").append("'%' + criteria.").append(columnName).append(" + '%');").append(LINE);
+            sb.append(SPACE).append(SPACE).append(SPACE).append(SPACE).append("b.add(p -> u.").append(columnName).append(".like('%' + p + '%'), ").append("criteria.").append(columnName).append(");").append(LINE);
         }
         return sb.toString();
     }
