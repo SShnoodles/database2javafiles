@@ -19,8 +19,7 @@ public class FieldDtoAnnotationTemplateImpl implements FieldTemplate {
         sb.append(")");
         if (!column.isNullable()) {
             sb.append(LINE);
-            String string = ColumnType.get(column.getType().toUpperCase());
-            if ("String".equals(string)) {
+            if (ColumnType.isString(column.getType().toUpperCase())) {
                 sb.append("    @NotBlank(message = \"").append(column.getRemarks()).append(" 必填\")");
             } else {
                 sb.append("    @NotNull(message = \"").append(column.getRemarks()).append(" 必填\")");

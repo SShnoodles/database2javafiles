@@ -13,7 +13,11 @@ public class Column {
     private String type;
     private String remarks;
     private boolean primaryKey;
-    private boolean decimalDigits;
+    private int decimalDigits;
     private boolean nullable;
     private int size;
+
+    public boolean isDecimalDigits() {
+        return decimalDigits > 0;
+    }
 }

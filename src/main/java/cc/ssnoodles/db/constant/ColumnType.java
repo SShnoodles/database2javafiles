@@ -79,4 +79,21 @@ public enum ColumnType {
         }
         return "Object";
     }
+
+    public static boolean isString(String type) {
+        return "String".equals(ColumnType.get(type));
+    }
+
+    public static boolean isNumber(String type) {
+        return "Short".equals(ColumnType.get(type))
+                || "Integer".equals(ColumnType.get(type))
+                || "Long".equals(ColumnType.get(type))
+                || "Double".equals(ColumnType.get(type))
+                || "BigDecimal".equals(ColumnType.get(type));
+    }
+
+    public static boolean isTime(String type) {
+        return "OffsetDateTime".equals(ColumnType.get(type))
+                || "LocalDate".equals(ColumnType.get(type));
+    }
 }

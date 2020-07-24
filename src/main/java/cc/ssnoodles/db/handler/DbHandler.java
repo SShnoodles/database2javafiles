@@ -56,7 +56,7 @@ public interface DbHandler {
                 column.setName(columnName);
                 column.setType(columnType);
                 column.setRemarks(columnRemarks);
-                column.setDecimalDigits(decimalDigits > 0);
+                column.setDecimalDigits(decimalDigits);
                 column.setSize(columnSize);
                 column.setNullable(nullable == 1);
                 columns.add(column);

@@ -15,7 +15,7 @@ public class FieldCriteriaTemplateImpl implements FieldTemplate {
         StringBuilder sb = new StringBuilder();
         // @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
         // public LocalDate from;
-        if (isTime(column)) {
+        if (ColumnType.isTime(column.getType())) {
             appendPublicField(column, sb, "From");
             sb.append(LINE);
             appendPublicField(column, sb, "To");
@@ -26,7 +26,7 @@ public class FieldCriteriaTemplateImpl implements FieldTemplate {
     }
 
     private void appendPublicField(Column column, StringBuilder sb, String fieldSuffix) {
-        if (isTime(column)) {
+        if (ColumnType.isTime(column.getType())) {
             sb.append("    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)").append(LINE);
         }
         sb.append("    public ");
@@ -38,10 +38,5 @@ public class FieldCriteriaTemplateImpl implements FieldTemplate {
             sb.append(ColumnType.get(column.getType()));
         }
         sb.append(" ").append(StringUtil.underlineToHump(column.getName())).append(fieldSuffix).append(";").append(LINE);
-    }
-
-    private boolean isTime(Column column) {
-        return "OffsetDateTime".equals(ColumnType.get(column.getType()))
-                || "LocalDate".equals(ColumnType.get(column.getType()));
     }
 }
