@@ -16,18 +16,13 @@ public class PutFunctionTemplateImpl implements FunctionTemplate {
         String tableName = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHump(table.getName()) : StringUtil.topLowerCase(newClassName);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(SPACE).append("/**").append(LINE)
-                .append(SPACE).append(" * 修改").append(LINE)
-                .append(SPACE).append(" * @param id 主键").append(LINE)
-                .append(SPACE).append(" * @param data 修改数据").append(LINE)
-                .append(SPACE).append(" */").append(LINE)
-                .append(SPACE).append("@PutMapping(\"{id}\")").append(LINE)
+        sb.append(SPACE).append("@PutMapping(\"{id}\")").append(LINE)
                 .append(SPACE).append("@Transactional").append(LINE)
                 .append(SPACE).append("@Operation(summary = \"修改\")").append(LINE);
         if (table.getColumns().stream().anyMatch(column -> column.isPrimaryKey() && column.getType().equalsIgnoreCase("UUID"))) {
-            sb.append(SPACE).append("public void update(@PathVariable UUID id, @RequestBody ");
+            sb.append(SPACE).append("public void update(@PathVariable UUID id, @Validated @RequestBody ");
         } else {
-            sb.append(SPACE).append("public void update(@PathVariable String id, @RequestBody ");
+            sb.append(SPACE).append("public void update(@PathVariable String id, @Validated @RequestBody ");
         }
         sb.append(tableNameUpperCase).append(UPDATE).append(" data").append(") {").append(LINE)
                 .append(SPACE).append(SPACE).append(tableNameUpperCase).append(" ").append(tableName).append(" = ").append(tableName).append(REPOSITORY).append(".findById(id).orElseThrow(NotFoundException::new);").append(LINE)

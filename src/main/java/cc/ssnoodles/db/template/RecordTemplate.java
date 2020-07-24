@@ -42,7 +42,7 @@ public class RecordTemplate implements Template{
         for (Column column : columns) {
             sb.append(LINE);
             sb.append(new FieldNoteTemplateImpl().getTemplate(column));
-            sb.append(new FieldDtoAnnotationTemplateImpl().getTemplate(column));
+            sb.append(new FieldRecordDtoAnnotationTemplateImpl().getTemplate(column));
             sb.append(new FieldPublicTemplateImpl().getTemplate(column));
         }
         sb.append(END);

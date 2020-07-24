@@ -4,7 +4,7 @@ import cc.ssnoodles.db.constant.DbType;
 import cc.ssnoodles.db.entity.Config;
 
 import java.io.*;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * @author ssnoodles
@@ -91,6 +91,7 @@ public class FileUtil {
 
 
     public static void write2IfExistFiles(String path, String noExistStr, String existStr) {
+        final int last = getLastLine(path);
         File file = new File(path + SUFFIX);
         if (file.exists()) {
             String separator = System.getProperty("line.separator");
@@ -99,11 +100,11 @@ public class FileUtil {
                  BufferedReader br = new BufferedReader(reader)) {
                 StringBuilder sb = new StringBuilder();
                 String line;
+                int i = 0;
                 while ((line = br.readLine()) != null) {
-                    if (line.contains("}") && !line.contains("})")) {
-                        break;
-                    }
+                    if (i == last) break;
                     sb.append(line).append(separator);
+                    i++;
                 }
                 sb.append(separator);
                 sb.append(existStr);
@@ -115,4 +116,26 @@ public class FileUtil {
             write2JavaFiles(path, noExistStr, true);
         }
     }
+    
+    public static int getLastLine(String path) {
+        File file = new File(path + SUFFIX);
+        if (file.exists()) {
+            try (FileReader reader = new FileReader(file);
+                 BufferedReader br = new BufferedReader(reader)) {
+                List<Integer> lines = new ArrayList<>();
+                String content;
+                int i = 0;
+                while ((content = br.readLine()) != null) {
+                    if (content.contains("}")) {
+                        lines.add(i);
+                    }
+                    i++;
+                }
+                return lines.get(lines.size() - 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
+    } 
 }

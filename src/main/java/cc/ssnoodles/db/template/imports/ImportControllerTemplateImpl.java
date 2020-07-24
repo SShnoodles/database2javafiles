@@ -11,7 +11,9 @@ public class ImportControllerTemplateImpl implements ImportTemplate {
         StringBuilder sb = new StringBuilder();
         sb.append("import org.springframework.web.bind.annotation.*;").append(LINE)
                 .append("import org.springframework.data.domain.Pageable;").append(LINE)
-                .append("import java.util.Optional;").append(LINE);
+                .append("import java.util.Optional;").append(LINE)
+                .append("import io.swagger.v3.oas.annotations.Operation;").append(LINE)
+                .append("import io.swagger.v3.oas.annotations.tags.Tag;").append(LINE);
         return sb.toString();
     }
 }

@@ -16,12 +16,7 @@ public class GetFunctionTemplateImpl implements FunctionTemplate {
         String tableName = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHump(table.getName()) : StringUtil.topLowerCase(newClassName);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(SPACE).append("/**").append(LINE)
-                .append(SPACE).append(" * 查询单条").append(LINE)
-                .append(SPACE).append(" * @param id 主键").append(LINE)
-                .append(SPACE).append(" * @return 单条数据").append(LINE)
-                .append(SPACE).append(" */").append(LINE)
-                .append(SPACE).append("@GetMapping(\"{id}\")").append(LINE)
+        sb.append(SPACE).append("@GetMapping(\"{id}\")").append(LINE)
                 .append(SPACE).append("@Operation(summary = \"查询单条\")").append(LINE)
                 .append(SPACE).append("public ").append(tableNameUpperCase).append(RECORD);
         if (table.getColumns().stream().anyMatch(column -> column.isPrimaryKey() && column.getType().equalsIgnoreCase("UUID"))) {

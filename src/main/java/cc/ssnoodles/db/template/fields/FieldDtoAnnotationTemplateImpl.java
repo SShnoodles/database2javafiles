@@ -2,6 +2,7 @@ package cc.ssnoodles.db.template.fields;
 
 import cc.ssnoodles.db.constant.ColumnType;
 import cc.ssnoodles.db.entity.Column;
+import cc.ssnoodles.db.util.StringUtil;
 
 /**
  * @author sunshun
@@ -12,7 +13,8 @@ public class FieldDtoAnnotationTemplateImpl implements FieldTemplate {
     @Override
     public String getTemplate(Column column) {
         StringBuilder sb = new StringBuilder();
-        sb.append("    @Schema(description = \"").append(column.getRemarks()).append("\"");
+        String remark = StringUtil.isEmpty(column.getRemarks()) ? "" : column.getRemarks();
+        sb.append("    @Schema(title = \"").append(remark).append("\"");
         if (!column.isNullable()) {
             sb.append(", required = true");
         }
@@ -20,10 +22,14 @@ public class FieldDtoAnnotationTemplateImpl implements FieldTemplate {
         if (!column.isNullable()) {
             sb.append(LINE);
             if (ColumnType.isString(column.getType().toUpperCase())) {
-                sb.append("    @NotBlank(message = \"").append(column.getRemarks()).append(" 必填\")");
+                sb.append("    @NotBlank(message = \"").append(remark).append(" 必填\")");
             } else {
-                sb.append("    @NotNull(message = \"").append(column.getRemarks()).append(" 必填\")");
+                sb.append("    @NotNull(message = \"").append(remark).append(" 必填\")");
             }
+        }
+        if (ColumnType.isString(column.getType())) {
+            sb.append(LINE);
+            sb.append("    @Size(max = ").append(column.getSize()).append(")");
         }
         sb.append(LINE);
         return sb.toString();

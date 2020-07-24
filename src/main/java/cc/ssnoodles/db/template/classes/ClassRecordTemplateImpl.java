@@ -1,4 +1,4 @@
-package cc.ssnoodles.db.template;
+package cc.ssnoodles.db.template.classes;
 
 import cc.ssnoodles.db.entity.Table;
 import cc.ssnoodles.db.template.classes.ClassTemplate;

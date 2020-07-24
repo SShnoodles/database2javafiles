@@ -1,6 +1,7 @@
 package cc.ssnoodles.db.template.classes;
 
 import cc.ssnoodles.db.entity.Table;
+import cc.ssnoodles.db.util.StringUtil;
 
 /**
  * @author sunshun
@@ -10,6 +11,7 @@ import cc.ssnoodles.db.entity.Table;
 public class ClassDtoAnnotationTemplateImpl implements ClassTemplate {
     @Override
     public String getTemplate(Table table, String newClassName) {
-        return "@Schema(description = \"" + table.getRemarks() + "\")" + LINE;
+        String remark = StringUtil.isEmpty(table.getRemarks()) ? "" : table.getRemarks();
+        return "@Schema(title = \"" + remark + "\")" + LINE;
     }
 }

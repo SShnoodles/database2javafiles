@@ -16,11 +16,7 @@ public class DeleteFunctionTemplateImpl implements FunctionTemplate {
         String tableName = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHump(table.getName()) : StringUtil.topLowerCase(newClassName);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(SPACE).append("/**").append(LINE)
-                .append(SPACE).append(" * 删除").append(LINE)
-                .append(SPACE).append(" * @param id 主键").append(LINE)
-                .append(SPACE).append(" */").append(LINE)
-                .append(SPACE).append("@DeleteMapping(\"{id}\")").append(LINE)
+        sb.append(SPACE).append("@DeleteMapping(\"{id}\")").append(LINE)
                 .append(SPACE).append("@Transactional").append(LINE)
                 .append(SPACE).append("@Operation(summary = \"删除\")").append(LINE)
                 .append(SPACE);

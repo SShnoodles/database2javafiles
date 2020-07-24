@@ -16,15 +16,10 @@ public class PostFunctionTemplateImpl implements FunctionTemplate {
         String tableName = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHump(table.getName()) : StringUtil.topLowerCase(newClassName);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(SPACE).append("/**").append(LINE)
-                .append(SPACE).append(" * 新增").append(LINE)
-                .append(SPACE).append(" * @param data 新增数据").append(LINE)
-                .append(SPACE).append(" * @return 主键").append(LINE)
-                .append(SPACE).append(" */").append(LINE)
-                .append(SPACE).append("@PostMapping").append(LINE)
+        sb.append(SPACE).append("@PostMapping").append(LINE)
                 .append(SPACE).append("@Transactional").append(LINE)
                 .append(SPACE).append("@Operation(summary = \"新增\")").append(LINE)
-                .append(SPACE).append("public ").append(tableNameUpperCase).append(RECORD).append(" create(@RequestBody ").append(tableNameUpperCase).append(NEW).append(" data").append(") {").append(LINE)
+                .append(SPACE).append("public ").append(tableNameUpperCase).append(RECORD).append(" create(@Validated @RequestBody ").append(tableNameUpperCase).append(NEW).append(" data").append(") {").append(LINE)
                 .append(SPACE).append(SPACE).append(tableNameUpperCase).append(" ").append(tableName).append(" = new ").append(tableNameUpperCase);
         if (table.getColumns().stream().anyMatch(column -> column.isPrimaryKey() && column.getType().equalsIgnoreCase("UUID"))) {
             sb.append("(UUID.randomUUID());");
