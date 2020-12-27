@@ -3,6 +3,7 @@ package cc.ssnoodles.db.template;
 import cc.ssnoodles.db.entity.Table;
 
 /**
+ * root template
  * @author ssnoodles
  * @version 1.0
  * Create at 2018/8/27 09:18

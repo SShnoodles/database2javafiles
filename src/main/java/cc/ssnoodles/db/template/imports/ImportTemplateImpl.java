@@ -13,7 +13,8 @@ public class ImportTemplateImpl implements ImportTemplate {
         sb.append("import lombok.*;").append(LINE)
                 .append("import javax.persistence.*;").append(LINE)
                 .append("import java.math.BigDecimal;").append(LINE)
-                .append("import java.time.*;").append(LINE);
+                .append("import java.time.*;").append(LINE)
+                .append("import java.util.UUID;").append(LINE);
         return sb.toString();
     }
 }

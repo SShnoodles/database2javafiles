@@ -7,13 +7,12 @@ import cc.ssnoodles.db.util.StringUtil;
  * 单条
  * @author ssnoodles
  * @version 1.0
- * Create at 2019-03-13 09:39
+ * Create at 2020-12-27 13:26
  */
-public class GetFunctionTemplateImpl implements FunctionTemplate {
+public class GetFunctionTypedTemplateImpl implements FunctionTemplate {
     @Override
     public String getTemplate(Table table, String newClassName) {
         String tableNameUpperCase = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHumpTopUpperCase(table.getName()) : newClassName;
-        String tableName = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHump(table.getName()) : StringUtil.topLowerCase(newClassName);
 
         StringBuilder sb = new StringBuilder();
         sb.append(SPACE).append("@GetMapping(\"{id}\")").append(LINE)
@@ -25,7 +24,7 @@ public class GetFunctionTemplateImpl implements FunctionTemplate {
             sb.append(" get(@PathVariable String id) {");
         }
         sb.append(LINE)
-                .append(SPACE).append(SPACE).append("return repository.findById(id).map(dataMapper::of).orElseThrow(ResourceNotFoundException::new);").append(LINE)
+                .append(SPACE).append(SPACE).append("return repository.load").append(tableNameUpperCase).append("(id).map(dataMapper::of).orElseThrow(ResourceNotFoundException::new);").append(LINE)
                 .append(SPACE).append("}").append(LINE).append(LINE);
         return sb.toString();
     }

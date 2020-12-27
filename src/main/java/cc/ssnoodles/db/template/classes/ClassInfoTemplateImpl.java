@@ -9,13 +9,13 @@ import cc.ssnoodles.db.util.StringUtil;
  * @version 1.0
  * Create at 2019-03-13 12:35
  */
-public class ClassRecordTemplateImpl implements ClassTemplate {
+public class ClassInfoTemplateImpl implements ClassTemplate {
     @Override
     public String getTemplate(Table table, String newClassName) {
         StringBuilder sb = new StringBuilder();
         sb.append("public class ")
                 .append(StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHumpTopUpperCase(table.getName()) : newClassName)
-                .append(RECORD)
+                .append(INFO)
                 .append(" ").append(BEGIN).append(LINE);
         return sb.toString();
     }

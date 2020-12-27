@@ -21,13 +21,13 @@ public class PageFunctionTemplateImpl implements FunctionTemplate {
 
         StringBuilder sb = new StringBuilder();
         sb.append(SPACE).append("@GetMapping").append(LINE)
-                .append(SPACE).append("@Operation(summary = \"查询列表\")").append(LINE)
-                .append(SPACE).append("public Page<").append(tableNameUpperCase).append(RECORD).append("> get(@SortDefault(direction = Sort.Direction.DESC) Pageable pageable, ").append(tableNameUpperCase).append(CRITERIA).append(" criteria) {").append(LINE)
+                .append(SPACE).append("@Operation(operationId = \"get").append(tableNameUpperCase).append("s\", summary = \"查询列表\")").append(LINE)
+                .append(SPACE).append("public Page<").append(tableNameUpperCase).append(INFO).append("> get(@SortDefault(direction = Sort.Direction.DESC) Pageable pageable, ").append(tableNameUpperCase).append(CRITERIA).append(" criteria) {").append(LINE)
                 .append(SPACE).append(SPACE).append("var predicate = Predicates.build(Q").append(tableNameUpperCase).append(".class, (u, b) -> {").append(LINE);
         List<Column> columns = table.getColumns();
         columns.forEach(column -> sb.append(asPredicate(column)));
         sb.append(SPACE).append(SPACE).append("});").append(LINE)
-                .append(SPACE).append(SPACE).append("return ").append(tableName).append(REPOSITORY).append(".findAll(predicate, pageable).map(dataMapper::of);").append(LINE)
+                .append(SPACE).append(SPACE).append("return repository.findAll(predicate, pageable).map(dataMapper::of);").append(LINE)
                 .append(SPACE).append("}").append(LINE).append(LINE);
         return sb.toString();
     }

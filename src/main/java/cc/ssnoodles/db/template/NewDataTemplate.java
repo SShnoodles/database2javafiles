@@ -9,6 +9,7 @@ import cc.ssnoodles.db.template.imports.ImportSimpleTemplateImpl;
 import java.util.List;
 
 /**
+ * dto template for POST PUT
  * @author ssnoodles
  * @version 1.0
  * Create at 2019-03-13 09:20

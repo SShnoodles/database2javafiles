@@ -8,7 +8,7 @@ import cc.ssnoodles.db.template.imports.ImportSimpleTemplateImpl;
 import java.util.List;
 
 /**
- * dto 模板
+ * dto template
  * @author ssnoodles
  * @version 1.0
  * Create at 2018/8/27 09:22

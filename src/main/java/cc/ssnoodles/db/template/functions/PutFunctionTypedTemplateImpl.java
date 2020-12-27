@@ -7,9 +7,9 @@ import cc.ssnoodles.db.util.StringUtil;
  * 修改
  * @author ssnoodles
  * @version 1.0
- * Create at 2019-03-13 09:40
+ * Create at 2020-12-27 13:26
  */
-public class PutFunctionTemplateImpl implements FunctionTemplate {
+public class PutFunctionTypedTemplateImpl implements FunctionTemplate {
     @Override
     public String getTemplate(Table table, String newClassName) {
         String tableNameUpperCase = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHumpTopUpperCase(table.getName()) : newClassName;
@@ -26,9 +26,9 @@ public class PutFunctionTemplateImpl implements FunctionTemplate {
             sb.append(SPACE).append("public void update(@PathVariable String id, @Validated @RequestBody ");
         }
         sb.append(tableNameUpperCase).append(UPDATE).append(" data").append(") {").append(LINE)
-                .append(SPACE).append(SPACE).append(tableNameUpperCase).append(" ").append(tableName).append(" = repository.findById(id).orElseThrow(ResourceNotFoundException::new);").append(LINE)
+                .append(SPACE).append(SPACE).append(tableNameUpperCase).append(" ").append(tableName).append(" = repository.load").append(tableNameUpperCase).append("(id).orElseThrow(ResourceNotFoundException::new);").append(LINE)
                 .append(SPACE).append(SPACE).append("entityMapper.assign(").append(tableName).append(", data").append(");").append(LINE)
-                .append(SPACE).append(SPACE).append("repository.save(").append(tableName).append(");").append(LINE)
+                .append(SPACE).append(SPACE).append("repository.add(").append(tableName).append(");").append(LINE)
                 .append(SPACE).append("}").append(LINE).append(LINE);
         return sb.toString();
     }

@@ -5,6 +5,7 @@ import cc.ssnoodles.db.template.classes.*;
 import cc.ssnoodles.db.template.imports.ImportRepositoryTemplateImpl;
 
 /**
+ * jpa repository template
  * @author ssnoodles
  * @version 1.0
  * Create at 2019-02-12 08:41

@@ -9,27 +9,13 @@ import cc.ssnoodles.db.template.imports.ImportSimpleTemplateImpl;
 import java.util.List;
 
 /**
- * dto 模板
+ * dto template for GET
  * @author ssnoodles
  * @version 1.0
  * Create at 2018/8/27 09:22
  */
-public class RecordTemplate implements Template{
-    // 生成模板样式
-    //
-    // /**
-    //  * 数据字典数据明细
-    //  */
-    // public class BasicDicItems {
-    //    /**
-    //     * 主键
-    //     */
-    //    public String guid;
-    //    /**
-    //     * 编辑人主键
-    //     */
-    //    public String editorGuid;
-    // }
+public class InfoTemplate implements Template {
+
     @Override
     public String tableDataToString(Table table, String newClassName) {
         StringBuilder sb = new StringBuilder();
@@ -37,7 +23,7 @@ public class RecordTemplate implements Template{
         sb.append(LINE);
         sb.append(new ClassNoteTemplateImpl().getTemplate(table, newClassName));
         sb.append(new ClassDtoAnnotationTemplateImpl().getTemplate(table, newClassName));
-        sb.append(new ClassRecordTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new ClassInfoTemplateImpl().getTemplate(table, newClassName));
         List<Column> columns = table.getColumns();
         for (Column column : columns) {
             sb.append(LINE);
@@ -51,6 +37,6 @@ public class RecordTemplate implements Template{
 
     @Override
     public String endsWith() {
-        return "Record";
+        return "Info";
     }
 }

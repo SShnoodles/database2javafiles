@@ -10,7 +10,7 @@ import cc.ssnoodles.db.template.imports.ImportSimpleTemplateImpl;
 import java.util.List;
 
 /**
- * 通用模板
+ * common template
  * @author ssnoodles
  * @version 1.0
  * Create at 2018/8/27 09:22

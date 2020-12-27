@@ -12,6 +12,7 @@ public class ImportSimpleTemplateImpl implements ImportTemplate {
         sb.append("import lombok.*;").append(LINE)
                 .append("import java.math.BigDecimal;").append(LINE)
                 .append("import java.time.*;").append(LINE)
+                .append("import java.util.UUID;").append(LINE)
                 .append("import org.springframework.format.annotation.DateTimeFormat;").append(LINE)
                 .append("import io.swagger.v3.oas.annotations.media.Schema;").append(LINE)
                 .append("import javax.validation.constraints.NotBlank;").append(LINE)

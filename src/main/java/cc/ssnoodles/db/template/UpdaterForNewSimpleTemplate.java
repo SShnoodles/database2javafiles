@@ -4,6 +4,7 @@ import cc.ssnoodles.db.entity.Table;
 import cc.ssnoodles.db.template.functions.UpdaterForNewFunctionTemplateImpl;
 
 /**
+ * mapping template
  * @author ssnoodles
  * @version 1.0
  * Create at 2019-03-14 09:10

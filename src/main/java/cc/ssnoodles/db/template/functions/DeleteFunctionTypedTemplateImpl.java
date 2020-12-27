@@ -7,9 +7,9 @@ import cc.ssnoodles.db.util.StringUtil;
  * 删除
  * @author ssnoodles
  * @version 1.0
- * Create at 2019-03-13 09:40
+ * Create at 2020-12-27 13:26
  */
-public class DeleteFunctionTemplateImpl implements FunctionTemplate {
+public class DeleteFunctionTypedTemplateImpl implements FunctionTemplate {
     @Override
     public String getTemplate(Table table, String newClassName) {
         String tableNameUpperCase = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHumpTopUpperCase(table.getName()) : newClassName;
@@ -27,8 +27,8 @@ public class DeleteFunctionTemplateImpl implements FunctionTemplate {
             sb.append("public void delete(@PathVariable String id) {");
         }
         sb.append(LINE)
-                .append(SPACE).append(SPACE).append("var ").append(tableName).append(" = repository.findById(id).orElseThrow(ResourceNotFoundException::new);").append(LINE)
-                .append(SPACE).append(SPACE).append("repository.delete(").append(tableName).append(");").append(LINE)
+                .append(SPACE).append(SPACE).append("var ").append(tableName).append(" = repository.loadUser(id).orElseThrow(ResourceNotFoundException::new);").append(LINE)
+                .append(SPACE).append(SPACE).append("repository.remove(").append(tableName).append(");").append(LINE)
                 .append(SPACE).append("}").append(LINE).append(LINE);
         return sb.toString();
     }

@@ -7,6 +7,7 @@ import cc.ssnoodles.db.template.classes.ClassRefTemplateImpl;
 import cc.ssnoodles.db.template.imports.ImportSimpleTemplateImpl;
 
 /**
+ * dto template for GET
  * @author ssnoodles
  * @version 1.0
  * Create at 2019-03-13 09:20

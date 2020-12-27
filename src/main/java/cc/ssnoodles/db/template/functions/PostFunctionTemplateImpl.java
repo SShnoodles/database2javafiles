@@ -18,8 +18,8 @@ public class PostFunctionTemplateImpl implements FunctionTemplate {
         StringBuilder sb = new StringBuilder();
         sb.append(SPACE).append("@PostMapping").append(LINE)
                 .append(SPACE).append("@Transactional").append(LINE)
-                .append(SPACE).append("@Operation(summary = \"新增\")").append(LINE)
-                .append(SPACE).append("public ").append(tableNameUpperCase).append(RECORD).append(" create(@Validated @RequestBody ").append(tableNameUpperCase).append(NEW).append(" data").append(") {").append(LINE)
+                .append(SPACE).append("@Operation(operationId = \"add").append(tableNameUpperCase).append("\", summary = \"新增\")").append(LINE)
+                .append(SPACE).append("public ").append(tableNameUpperCase).append(INFO).append(" add(@Validated @RequestBody ").append(tableNameUpperCase).append(UPDATE).append(" data").append(") {").append(LINE)
                 .append(SPACE).append(SPACE).append(tableNameUpperCase).append(" ").append(tableName).append(" = new ").append(tableNameUpperCase);
         if (table.getColumns().stream().anyMatch(column -> column.isPrimaryKey() && column.getType().equalsIgnoreCase("UUID"))) {
             sb.append("(UUID.randomUUID());");
@@ -28,7 +28,7 @@ public class PostFunctionTemplateImpl implements FunctionTemplate {
         }
         sb.append(LINE)
                 .append(SPACE).append(SPACE).append("entityMapper.assign(").append(tableName).append(", data").append(");").append(LINE)
-                .append(SPACE).append(SPACE).append(tableName).append(REPOSITORY).append(".save").append("(").append(tableName).append(");").append(LINE)
+                .append(SPACE).append(SPACE).append("repository.save(").append(tableName).append(");").append(LINE)
                 .append(SPACE).append(SPACE).append("return dataMapper.of(").append(tableName).append(");").append(LINE)
                 .append(SPACE).append("}").append(LINE).append(LINE);
         return sb.toString();

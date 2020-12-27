@@ -32,7 +32,7 @@ public interface FunctionTemplate {
 
     String UPDATE = "Update";
 
-    String RECORD = "Record";
+    String INFO = "Info";
 
     String REF = "Ref";
 }

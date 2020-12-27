@@ -33,7 +33,7 @@ public interface ClassTemplate {
 
     String REF = "Ref";
 
-    String RECORD = "Record";
+    String INFO = "Info";
 
     String DO = "Do";
 

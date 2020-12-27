@@ -9,7 +9,7 @@ import cc.ssnoodles.db.template.imports.ImportTemplateImpl;
 import java.util.List;
 
 /**
- * jpa 模板
+ * jpa template
  * @author ssnoodles
  * @version 1.0
  * Create at 2018/8/27 09:22

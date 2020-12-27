@@ -6,6 +6,7 @@ import cc.ssnoodles.db.template.functions.DataMapperFunctionTemplateImpl;
 import cc.ssnoodles.db.template.imports.ImportMapperTemplateImpl;
 
 /**
+ * mapping template
  * @author ssnoodles
  * @version 1.0
  * Create at 2019-03-14 08:52

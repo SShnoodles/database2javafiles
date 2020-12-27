@@ -63,7 +63,7 @@ public class DbFactoryImpl implements DbFactory {
                 templates.add(new CriteriaTemplate());
                 templates.add(new NewDataTemplate());
                 templates.add(new UpdateTemplate());
-                templates.add(new RecordTemplate());
+                templates.add(new InfoTemplate());
                 templates.add(new ControllerTemplate());
             }
             else {
