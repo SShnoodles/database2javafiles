@@ -49,6 +49,7 @@ public enum ColumnType {
     DATE("DATE", "OffsetDateTime"),
     DATETIME("DATETIME", "OffsetDateTime"),
     TIMESTAMP("TIMESTAMP", "OffsetDateTime"),
+    TIMESTAMPZ("TIMESTAMP WITH TIME ZONE", "OffsetDateTime"),
     TIMESTAMPTZ("TIMESTAMPTZ", "OffsetDateTime"),
     TIMESTAMPLTZ("TIMESTAMPLTZ", "OffsetDateTime"),
     TIMESTAMP6("TIMESTAMP(6)", "OffsetDateTime");

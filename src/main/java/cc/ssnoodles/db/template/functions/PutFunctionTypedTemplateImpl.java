@@ -19,14 +19,14 @@ public class PutFunctionTypedTemplateImpl implements FunctionTemplate {
         sb.append(SPACE).append("@PutMapping(\"{id}\")").append(LINE)
                 .append(SPACE).append("@ResponseStatus(HttpStatus.NO_CONTENT)").append(LINE)
                 .append(SPACE).append("@Transactional").append(LINE)
-                .append(SPACE).append("@Operation(operationId = \"save").append(tableNameUpperCase).append("\", summary = \"修改\")").append(LINE);
+                .append(SPACE).append("@Operation(operationId = \"save").append(tableNameUpperCase).append("\", summary = \"更新\")").append(LINE);
         if (table.getColumns().stream().anyMatch(column -> column.isPrimaryKey() && column.getType().equalsIgnoreCase("UUID"))) {
             sb.append(SPACE).append("public void update(@PathVariable UUID id, @Validated @RequestBody ");
         } else {
             sb.append(SPACE).append("public void update(@PathVariable String id, @Validated @RequestBody ");
         }
         sb.append(tableNameUpperCase).append(UPDATE).append(" data").append(") {").append(LINE)
-                .append(SPACE).append(SPACE).append(tableNameUpperCase).append(" ").append(tableName).append(" = repository.load").append(tableNameUpperCase).append("(id).orElseThrow(ResourceNotFoundException::new);").append(LINE)
+                .append(SPACE).append(SPACE).append("var ").append(tableName).append(" = repository.load").append(tableNameUpperCase).append("(id).orElse(new ").append(tableNameUpperCase).append("(id));").append(LINE)
                 .append(SPACE).append(SPACE).append("entityMapper.assign(").append(tableName).append(", data").append(");").append(LINE)
                 .append(SPACE).append(SPACE).append("repository.add(").append(tableName).append(");").append(LINE)
                 .append(SPACE).append("}").append(LINE).append(LINE);

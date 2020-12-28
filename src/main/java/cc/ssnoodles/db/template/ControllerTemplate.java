@@ -25,6 +25,7 @@ public class ControllerTemplate implements Template {
         sb.append(new GetFunctionTemplateImpl().getTemplate(table, newClassName));
         sb.append(new PostFunctionTemplateImpl().getTemplate(table, newClassName));
         sb.append(new PutFunctionTemplateImpl().getTemplate(table, newClassName));
+        sb.append(new PatchFunctionTemplateImpl().getTemplate(table, newClassName));
         sb.append(new DeleteFunctionTemplateImpl().getTemplate(table, newClassName));
         sb.append(END);
         return sb.toString();

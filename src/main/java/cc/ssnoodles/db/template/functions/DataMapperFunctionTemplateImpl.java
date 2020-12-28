@@ -14,8 +14,10 @@ public class DataMapperFunctionTemplateImpl implements FunctionTemplate {
         String tableNameUpperCase = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHumpTopUpperCase(table.getName()) : newClassName;
         String tableName = StringUtil.isEmpty(newClassName) ? StringUtil.underlineToHump(table.getName()) : StringUtil.topLowerCase(newClassName);
         StringBuilder sb = new StringBuilder();
-        sb.append(SPACE).append(tableNameUpperCase).append(INFO).append(" of(")
-                .append(tableNameUpperCase).append(" ").append(tableName).append(");").append(LINE);
+        sb.append(SPACE).append(tableNameUpperCase).append(INFO).append(" of(").append(tableNameUpperCase).append(" ").append(tableName).append(");")
+                .append(LINE).append(LINE)
+                .append(SPACE).append(tableNameUpperCase).append(UPDATE).append(" toUpdate(").append(tableNameUpperCase).append(" ").append(tableName).append(");")
+                .append(LINE);
         return sb.toString();
     }
 }

@@ -20,7 +20,7 @@ public class PostFunctionTemplateImpl implements FunctionTemplate {
                 .append(SPACE).append("@Transactional").append(LINE)
                 .append(SPACE).append("@Operation(operationId = \"add").append(tableNameUpperCase).append("\", summary = \"新增\")").append(LINE)
                 .append(SPACE).append("public ").append(tableNameUpperCase).append(INFO).append(" add(@Validated @RequestBody ").append(tableNameUpperCase).append(UPDATE).append(" data").append(") {").append(LINE)
-                .append(SPACE).append(SPACE).append(tableNameUpperCase).append(" ").append(tableName).append(" = new ").append(tableNameUpperCase);
+                .append(SPACE).append(SPACE).append("var ").append(tableName).append(" = new ").append(tableNameUpperCase);
         if (table.getColumns().stream().anyMatch(column -> column.isPrimaryKey() && column.getType().equalsIgnoreCase("UUID"))) {
             sb.append("(UUID.randomUUID());");
         } else {

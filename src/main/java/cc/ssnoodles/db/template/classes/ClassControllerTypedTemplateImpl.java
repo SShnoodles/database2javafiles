@@ -1,6 +1,7 @@
 package cc.ssnoodles.db.template.classes;
 
 import cc.ssnoodles.db.entity.Table;
+import cc.ssnoodles.db.util.EnglishUtil;
 import cc.ssnoodles.db.util.StringUtil;
 
 /**
@@ -18,7 +19,7 @@ public class ClassControllerTypedTemplateImpl implements ClassTemplate {
         StringBuilder sb = new StringBuilder();
         // 依赖
         sb.append("@RestController").append(LINE)
-                .append("@RequestMapping(\"").append(tableUrl).append("s\")").append(LINE)
+                .append("@RequestMapping(\"").append(EnglishUtil.simplePlural(tableUrl)).append("\")").append(LINE)
                 .append("@Tag(name = \"").append(tag).append("\")").append(LINE)
                 .append("public class ").append(tableNameUpperCase).append(CONTROLLER).append(" {").append(LINE)
                 .append(LINE)
@@ -34,7 +35,7 @@ public class ClassControllerTypedTemplateImpl implements ClassTemplate {
                 .append(SPACE).append(SPACE).append("this.entityMapper = entityMapper;").append(LINE)
                 .append(SPACE).append(SPACE).append("this.dataMapper = dataMapper;").append(LINE)
                 .append(SPACE).append("}")
-                .append(LINE);
+                .append(LINE).append(LINE);
         return sb.toString();
     }
 
