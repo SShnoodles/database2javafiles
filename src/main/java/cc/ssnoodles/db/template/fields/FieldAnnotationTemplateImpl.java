@@ -22,8 +22,8 @@ public class FieldAnnotationTemplateImpl implements FieldTemplate {
         if (!column.isNullable()) {
             sb.append(", nullable = false");
         }
-        if (ColumnType.isString(column.getType().toUpperCase()) && column.getSize() != 255) {
-            sb.append(", length = ").append(column.getSize());
+        if (!ColumnType.isBigString(column.getType()) && ColumnType.isString(column.getType()) && column.getSize() != 255) {
+            sb.append(", length = ").append(column.getSize() == 0 ? 1 : column.getSize());
         }
         if (ColumnType.isNumber(column.getType().toUpperCase())) {
             if (column.getSize() != 0) {

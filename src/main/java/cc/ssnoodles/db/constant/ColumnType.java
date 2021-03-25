@@ -8,6 +8,7 @@ package cc.ssnoodles.db.constant;
 public enum ColumnType {
     UUID("UUID", "UUID"),
 
+    LONGBLOB("LONGBLOB", "String"),
     LONGTEXT("LONGTEXT", "String"),
     CHAR("CHAR", "String"),
     VARCHAR("VARCHAR", "String"),
@@ -83,6 +84,15 @@ public enum ColumnType {
 
     public static boolean isString(String type) {
         return "String".equals(ColumnType.get(type));
+    }
+
+    public static boolean isBigString(String type) {
+        return LONGTEXT.columnType.equalsIgnoreCase(type)
+                || LONGBLOB.columnType.equalsIgnoreCase(type)
+                || CLOB.columnType.equalsIgnoreCase(type)
+                || NCLOB.columnType.equalsIgnoreCase(type)
+                || BLOB.columnType.equalsIgnoreCase(type)
+                || TEXT.columnType.equalsIgnoreCase(type);
     }
 
     public static boolean isNumber(String type) {

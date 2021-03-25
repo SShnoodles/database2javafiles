@@ -27,9 +27,9 @@ public class FieldDtoAnnotationTemplateImpl implements FieldTemplate {
                 sb.append("    @NotNull(message = \"").append(remark).append(" 必填\")");
             }
         }
-        if (ColumnType.isString(column.getType())) {
+        if (ColumnType.isString(column.getType()) && !ColumnType.isBigString(column.getType())) {
             sb.append(LINE);
-            sb.append("    @Size(max = ").append(column.getSize()).append(")");
+            sb.append("    @Size(max = ").append(column.getSize() == 0 ? 1 : column.getSize()).append(")");
         }
         sb.append(LINE);
         return sb.toString();
